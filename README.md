@@ -1,451 +1,381 @@
-# 🏆 CAN 2025 Chatbot - Système RAG Complet avec Interface Web
+# 🏆 Chatbot CAN 2025 - Intelligence Artificielle pour la Coupe d'Afrique
 
-## Description
-Chatbot intelligent avec système RAG (Retrieval-Augmented Generation) pour répondre aux questions sur la Coupe d'Afrique des Nations 2025 au Maroc. Utilise **Groq API gratuite** pour le LLM, **HuggingFace embeddings** (100% local), et **Streamlit** pour l'interface web moderne.
+Application web intelligente avec analyse de sentiment pour la CAN 2025 au Maroc. Système RAG (Retrieval-Augmented Generation) alimenté par Groq LLM et analyse de sentiment des supporters sur YouTube.
 
-## ✅ Fonctionnalités Implémentées
+## ✨ Fonctionnalités
 
-### Phase 1: Pipeline ETL ✅
-- ✅ Web scraping automatisé avec gestion d'erreurs
-- ✅ Collecte depuis sources officielles (Wikipedia, BBC Sport, ESPN, FlashScore)
-- ✅ Extraction structurée (titre, contenu, date, lien, mots-clés)
-- ✅ Transformation pour RAG (enrichissement, métadonnées)
-- ✅ Stockage JSON optimisé
-- ✅ Scraper optimisé avec retry logic, validation, quality scoring
+### 💬 Chatbot Intelligent
+- Réponses basées sur des données réelles (Wikipedia)
+- Recherche sémantique avec ChromaDB
+- Sources affichées pour chaque réponse
+- Interface de chat moderne et intuitive
+- **Pas d'hallucinations** - données vérifiées uniquement
 
-### Phase 2: Système RAG ✅
-- ✅ Vectorisation avec HuggingFace Embeddings (gratuit, local)
-- ✅ Base vectorielle ChromaDB
-- ✅ Recherche sémantique performante
-- ✅ Chatbot Q&A avec LangChain + Groq (llama-3.3-70b-versatile)
-- ✅ Mode interactif avec historique
-- ✅ Support multi-questions (batch)
-- ✅ Aucune hallucination (données réelles uniquement)
+### 📊 Analyse de Sentiment YouTube
+- Extraction automatique de commentaires YouTube
+- Analyse multilingue (Français, Anglais, Arabe)
+- Classification : Positif / Neutre / Négatif
+- Visualisations interactives (graphiques, statistiques)
+- Top 5 commentaires les plus populaires
+- Score de confiance à 95-98% avec modèle CardiffNLP
 
-### Phase 3: Interface Web ✅
-- ✅ Interface Streamlit moderne et responsive
-- ✅ Chat interactif en temps réel
-- ✅ Affichage des sources avec métadonnées
-- ✅ Sidebar avec statistiques et exemples
-- ✅ Design aux couleurs du Maroc 🇲🇦
-- ✅ Questions prédéfinies pour démarrage rapide
+### 🔄 Scraper Multi-Sources
+- Wikipedia (FR + EN) ✅
+- BBC Sport (prêt pour tournoi)
+- ESPN (prêt pour tournoi)
+- FlashScore (résultats en temps réel)
 
-### Phase 4: Analyse de Sentiment ✅ NOUVEAU
-- ✅ Extraction de commentaires YouTube
-- ✅ Analyse de sentiment multilingue (FR/EN/AR)
-- ✅ Classification: Positif / Neutre / Négatif
-- ✅ Visualisations interactives (camembert, barres, nuages de mots)
-- ✅ Top 5 commentaires positifs/négatifs
-- ✅ Score de confiance pour chaque analyse
-- ✅ Support jusqu'à 1000 commentaires par vidéo
+## 🚀 Démarrage Rapide
 
-## 📦 Installation
+### 1. Installation
 
-### 1. Dépendances Python
+```bash
+# Cloner le repository
+git clone https://github.com/anasakhssas/Chatbot_AFCON_Maroc.git
+cd Chatbot_AFCON_Maroc
 
-```powershell
-# Activer l'environnement virtuel
-.\venv\Scripts\Activate.ps1
+# Créer l'environnement virtuel
+python -m venv venv
+.\venv\Scripts\Activate.ps1  # Windows
+source venv/bin/activate      # Linux/Mac
 
-# Installer toutes les dépendances (ETL + RAG + Streamlit + Sentiment Analysis)
+# Installer les dépendances
 pip install -r requirements.txt
 ```
 
-### 2. Configuration API Groq (GRATUITE)
+### 2. Configuration
 
-```powershell
-# Créer un fichier .env avec votre clé API Groq
-echo "GROQ_API_KEY=votre_cle_groq_ici" > .env
+Créez un fichier `.env` avec votre clé API Groq (gratuite) :
+
+```bash
+GROQ_API_KEY=votre_cle_ici
 ```
 
-> 🎁 **API Groq gratuite** : 30 requêtes/minute, ultra-rapide, sans carte bancaire
-> Obtenez votre clé sur : https://console.groq.com/keys
+> 🎁 **Obtenez votre clé gratuite** sur : https://console.groq.com/keys
+> - 30 requêtes/minute
+> - Aucune carte bancaire requise
+> - Modèle llama-3.3-70b ultra-rapide
 
-## 🚀 Utilisation Rapide
+### 3. Lancer l'Application
 
-### 🌐 Interface Web (Recommandé - Pipeline Automatisé)
-
-```powershell
-# Lancer l'application web Streamlit - TOUT EST AUTOMATIQUE !
+```bash
+# Windows
 .\venv\Scripts\python.exe -m streamlit run src/app.py
+
+# Linux/Mac
+python -m streamlit run src/app.py
 ```
 
-Puis ouvrez : **http://localhost:8501** dans votre navigateur
+Ouvrez votre navigateur sur : **http://localhost:8501**
 
-**🤖 Pipeline Automatisé :**
-- ✅ **Extraction automatique** : Génère les données démo si absentes
-- ✅ **Transformation automatique** : Prépare les données pour RAG
-- ✅ **Vectorisation automatique** : Crée ChromaDB si nécessaire
-- ✅ **Prêt à l'emploi** : Lancez et utilisez directement !
+## 📖 Guide d'Utilisation
 
-**Fonctionnalités web :**
-- 💬 Chat interactif avec historique
-- 📚 Affichage des sources pour chaque réponse
-- 💡 Questions d'exemple prédéfinies
-- 📊 Analyse de sentiment des commentaires YouTube
-- 🔄 Navigation entre Chatbot et Analyse de Sentiment
-- 🎨 Design moderne aux couleurs du Maroc
+### Page Chatbot
 
-**Fonctionnalités d'analyse de sentiment :**
-- 📥 Extraction automatique de commentaires YouTube
-- 🤖 Analyse de sentiment multilingue (FR/EN/AR)
-- 📊 Visualisations: camembert, barres, nuages de mots
-- 💬 Top 5 commentaires positifs/négatifs
-- 📈 Scores de confiance pour chaque analyse
+1. **Posez vos questions** sur la CAN 2025 :
+   - "Où se déroule la CAN 2025 ?"
+   - "Combien d'équipes participent ?"
+   - "Qui sont les meilleurs buteurs ?"
+   - "Quelles sont les dates du tournoi ?"
 
-### 🖥️ Mode Terminal (CLI - Manuel)
+2. **Consultez les sources** affichées sous chaque réponse
 
-Si vous voulez exécuter manuellement chaque étape :
+3. **Historique de conversation** conservé automatiquement
 
-```powershell
-# 1️⃣ Scraper les données réelles (Wikipedia + sources)
-python -m src.pipeline.real_scraper
+### Page Analyse de Sentiment
 
-# 2️⃣ Transformer les données
-python -m src.pipeline.pipeline
+1. **Trouvez une vidéo YouTube** sur la CAN 2025
 
-# 3️⃣ Vectoriser les données (créer ChromaDB)
-python -m src.rag.vectorizer
+2. **Copiez l'URL** et collez-la dans le champ
 
-# 4️⃣ Tester le chatbot en mode CLI
-python -m src.rag.chatbot
+3. **Configurez les options** (facultatif) :
+   - Nombre de commentaires (50-1000)
+   - Afficher la distribution de confiance
 
-# 5️⃣ Tester l'analyse de sentiment (optionnel)
-python tests/test_sentiment.py
-```
+4. **Cliquez sur "Analyser"** et obtenez :
+   - Pourcentages de sentiments (positif/neutre/négatif)
+   - Graphiques interactifs
+   - Top 5 commentaires positifs/négatifs
+   - Scores de confiance
 
-**Note :** En mode web, ces étapes sont automatiques !
+## 🛠️ Technologies Utilisées
 
----
+**Backend & IA :**
+- **Groq API** - LLM ultra-rapide (llama-3.3-70b)
+- **LangChain** - Framework RAG
+- **ChromaDB** - Base vectorielle
+- **HuggingFace** - Embeddings multilingues
+- **CardiffNLP** - Modèle sentiment analysis (95-98% précision)
 
-## 📚 Utilisation Détaillée
+**Scraping & Données :**
+- **BeautifulSoup4** - Parsing HTML
+- **Requests** - HTTP avec retry logic
+- **YouTube Comment Downloader** - Extraction commentaires
 
-### Phase 1: Pipeline ETL
+**Interface & Visualisation :**
+- **Streamlit** - Interface web
+- **Plotly** - Graphiques interactifs
+- **Matplotlib** - Visualisations
 
-#### Option A: Pipeline Complet (Recommandé)
-```powershell
-# Exécute Extract → Transform en une commande
-python -m src.pipeline.pipeline
-```
-
-#### Option B: Scraping Multi-Sources
-```powershell
-# 1. Scraping réel (Wikipedia + BBC + ESPN + FlashScore)
-python -m src.pipeline.real_scraper
-
-# 2. Transformation des données
-python -m src.pipeline.transform
-```
-
-### Phase 2: Système RAG ⭐
-
-#### Vectorisation (Une seule fois)
-```powershell
-# Créer la base vectorielle ChromaDB
-python -m src.rag.vectorizer
-```
-**Résultat:** Documents indexés dans `chroma_db/`
-
-#### Chatbot Interactif
-```powershell
-# Lancer le chatbot avec tests puis mode interactif
-python -m src.rag.chatbot
-```
-
-**Commandes dans le chat:**
-- Poser une question sur la CAN 2025
-- `history` - Voir l'historique
-- `quit` - Quitter
-
-### Phase 3: Analyse de Sentiment ⭐ NOUVEAU
-
-#### Test via script
-```powershell
-# Tester l'analyseur de sentiment
-python tests/test_sentiment.py
-```
-
-#### Utilisation via interface web
-1. Lancez l'application: `streamlit run src/app.py`
-2. Sélectionnez "📊 Analyse de Sentiment" dans la sidebar
-3. Collez une URL YouTube
-4. Cliquez sur "Analyser"
-5. Explorez les résultats et visualisations
-
-**Documentation complète:** Voir `GUIDE_ANALYSE_SENTIMENT.md`
-
-#### Exemples Avancés
-```powershell
-# Menu avec 8 exemples détaillés
-python examples\rag_examples.py
-```
-
-**Exemples disponibles:**
-1. Vectorisation des données
-2. Recherche sémantique
-3. Questions-réponses simples
-4. Questions en batch
-5. Réponse détaillée avec sources
-6. Comparaison de formulations
-7. Statistiques du système
-8. Mode interactif
-
----
-
-## 🤖 Exemples de Questions
-
-Le chatbot peut répondre à des questions comme:
-
-```
-❓ "Qui a marqué pour le Maroc ?"
-💬 "Brahim Díaz a ouvert le score en 55ème minute..."
-
-❓ "Quel est le meilleur buteur du tournoi ?"
-💬 "Riyad Mahrez mène la course au soulier d'or avec 3 buts..."
-
-❓ "Résultat du match Égypte Zimbabwe"
-💬 "L'Égypte a battu le Zimbabwe 2-1..."
-```
-
----
-
-## 📖 Utilisation Programmatique
-
-### Pipeline ETL
-```python
-# Pipeline complet
-from src.pipeline.pipeline import run_complete_pipeline
-run_complete_pipeline()
-
-# Ou étapes séparées
-from src.pipeline.demo_scraper import save_demo_data
-from src.pipeline.transform import DataTransformer
-
-# Extraction
-filepath = save_demo_data()
-
-# Transformation
-transformer = DataTransformer()
-transformer.transform_all_files()
-transformer.create_combined_dataset()
-```
-
-### Système RAG
-```python
-from src.rag.chatbot import ChatbotCAN2025
-
-# Créer le chatbot
-chatbot = ChatbotCAN2025()
-
-# Poser une question
-response = chatbot.ask("Qui a marqué pour le Maroc ?")
-print(response['answer'])
-print(f"Basé sur {response['num_sources']} sources")
-
-# Mode interactif
-chatbot.chat()
-```
-
-## 📊 Structure des Données
-
-### 1. Données Brutes (`data/daily_fetch/`)
-
-```json
-{
-  "metadata": {
-    "total_articles": 10,
-    "fetch_date": "2026-01-01T13:34:20",
-    "sources": ["CAF AFCON 2025"]
-  },
-  "articles": [
-    {
-      "id": "demo_1_20260101133420",
-      "title": "Morocco Opens AFCON 2025 with Victory",
-      "content": "Morocco kicked off the 2025 Africa Cup...",
-      "category": "match_result",
-      "keywords": ["CAN 2025", "Morocco", "Comoros"]
-    }
-  ]
-}
-```
-
-### 2. Données Transformées (`data/transformed/`)
-
-Format optimisé pour RAG avec texte enrichi:
-
-```json
-{
-  "metadata": {
-    "total_documents": 20,
-    "categories": {
-      "match_result": 12,
-      "match_preview": 2,
-      "tournament_news": 4,
-      "statistics": 2
-    }
-  },
-  "documents": [
-    {
-      "text": "Morocco Opens AFCON 2025 with Victory Over Comoros\n\nDate: 2025-12-21\n\nSource: CAF AFCON 2025\n\nMorocco kicked off...",
-      "metadata": {
-        "id": "demo_1_20260101133420",
-        "category": "match_result",
-        "teams": ["Morocco", "Comoros"],
-        "score": "2-0"
-      },
-      "original_content": {...}
-    }
-  ]
-}
-```
-
-### 3. Base Vectorielle (`chroma_db/`)
-
-ChromaDB stocke:
-- **Embeddings** : Vecteurs de 1536 dimensions (OpenAI)
-- **Métadonnées** : Catégorie, source, date, équipes...
-- **Textes** : Contenu enrichi pour le RAG
-
----
-
-## 📁 Architecture du Projet
+## 📁 Structure du Projet
 
 ```
 Chatbot_AFCON_Maroc/
 ├── src/
-│   ├── app.py                 # 🌐 Interface Web Streamlit ⭐ NOUVEAU
-│   │
-│   ├── pipeline/              # ETL Pipeline
-│   │   ├── config.py          # Configuration (sources, paths)
-│   │   ├── scraper.py         # Web scraping
-│   │   ├── demo_scraper.py    # Générateur de données démo
-│   │   ├── transform.py       # Transformation RAG
-│   │   └── pipeline.py        # Orchestration ETL
-│   │
-│   └── rag/                   # Système RAG
-│       ├── config.py          # Configuration (Groq, ChromaDB)
-│       ├── vectorizer.py      # Vectorisation + ChromaDB
-│       └── chatbot.py         # Chatbot Q&A avec LangChain
-│
-├── examples/
-│   ├── usage_examples.py      # Exemples ETL
-│   └── rag_examples.py        # Exemples RAG
-│
+│   ├── app.py                    # Application Streamlit (point d'entrée)
+│   ├── pipeline/
+│   │   ├── real_scraper.py       # Scraper multi-sources optimisé
+│   │   ├── pipeline.py           # Pipeline ETL
+│   │   └── auto_pipeline.py      # Automatisation
+│   ├── rag/
+│   │   ├── chatbot.py            # Chatbot RAG
+│   │   ├── vectorizer.py         # Vectorisation ChromaDB
+│   │   └── config.py             # Configuration
+│   └── sentiment/
+│       ├── youtube_analyzer.py   # Analyseur sentiment YouTube
+│       └── visualizer.py         # Graphiques et visualisations
 ├── data/
-│   ├── daily_fetch/           # Données brutes JSON
-│   └── transformed/           # Données transformées
-│       └── combined_dataset.json  # Dataset principal (20 docs)
-│
-├── chroma_db/                 # Base vectorielle ⭐ NOUVEAU
-│
-├── docs/
-│   ├── EXPLICATION_RAG.md     # Théorie du RAG
-│   └── INSTALLATION_RAG.md    # Guide d'installation
-│
-├── requirements.txt           # Dépendances (mis à jour)
-├── .env.example              # Template configuration
-└── README.md                 # Ce fichier
+│   ├── raw/                      # Données brutes scrapées
+│   └── transformed/              # Données transformées pour RAG
+├── chroma_db/                    # Base vectorielle (généré auto)
+├── tests/                        # Tests unitaires
+└── requirements.txt              # Dépendances Python
 ```
 
----
+## 🔧 Commandes Utiles
 
-## ⚙️ Configuration
+### Régénérer les Données
 
-### Pipeline ETL
-Modifiez `src/pipeline/config.py`:
-- Ajouter de nouvelles sources
-- Ajuster les sélecteurs CSS
-- Configurer les chemins
+```bash
+# Scraper les données Wikipedia
+python -m src.pipeline.real_scraper
 
-### Système RAG
-Modifiez `src/rag/config.py`:
-- Clé API OpenAI (`OPENAI_API_KEY`)
-- Modèles LLM et embeddings
-- Paramètres RAG (top_k, température, max_tokens)
-- Templates de prompts
+# Transformer les données
+python -m src.pipeline.pipeline
 
----
-
-## 💰 Coûts Estimés
-
-### Vectorisation (une seule fois)
-- 20 documents × ~200 tokens = **~$0.0001**
-
-### Par Question
-- Embedding : ~$0.0001
-- LLM (GPT-3.5) : ~$0.002
-- **Total : ~$0.002/question**
-
-### 100 Questions
-- **~$0.20 total**
-
----
-
-## 🧪 Tests
-
-### Pipeline ETL
-```powershell
-# Tester l'extraction
-python -m src.pipeline.demo_scraper
-
-# Tester la transformation
-python -m src.pipeline.transform
-
-# Voir les exemples
-python examples\usage_examples.py
-```
-
-### Système RAG
-```powershell
-# Tester la vectorisation
+# Vectoriser dans ChromaDB
 python -m src.rag.vectorizer
-
-# Tester le chatbot
-python -m src.rag.chatbot
-
-# Tests complets
-python examples\rag_examples.py
 ```
 
+### Tests
+
+```bash
+# Tester l'analyse de sentiment
+python tests/test_sentiment.py
+
+# Tester le chatbot en mode CLI
+python -m src.rag.chatbot
+```
+
+## 📊 Données Sources
+
+**Actuellement actives :**
+- Wikipedia FR : https://fr.wikipedia.org/wiki/Coupe_d%27Afrique_des_nations_de_football_2025
+- Wikipedia EN : https://en.wikipedia.org/wiki/2025_Africa_Cup_of_Nations
+
+**Prêtes pour activation :**
+- BBC Sport : https://www.bbc.com/sport/africa
+- ESPN : https://www.espn.com/soccer/
+- FlashScore : https://www.flashscore.com/football/africa/africa-cup-of-nations/
+
+## 🎯 Exemples de Questions
+
+**Informations Générales :**
+- Où se déroule la CAN 2025 ?
+- Quelles sont les dates du tournoi ?
+- Combien d'équipes participent ?
+
+**Équipes & Joueurs :**
+- Qui sont les meilleurs buteurs ?
+- Quelles équipes sont dans le groupe A ?
+- Quel pays est tenant du titre ?
+
+**Stades & Infrastructure :**
+- Quels stades accueillent les matchs ?
+- Quelle est la capacité du stade principal ?
+- Dans quelles villes se jouent les matchs ?
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! Pour contribuer :
+
+1. Forkez le projet
+2. Créez une branche (`git checkout -b feature/AmazingFeature`)
+3. Committez vos changements (`git commit -m 'Add AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrez une Pull Request
+
+## 📝 Documentation
+
+- **Guide d'Analyse de Sentiment** : `GUIDE_ANALYSE_SENTIMENT.md`
+- **Configuration RAG** : Voir `src/rag/config.py`
+- **Scraper Best Practices** : Documentation intégrée dans `real_scraper.py`
+
+## 🐛 Problèmes Connus
+
+- Le scraping BBC/ESPN/FlashScore nécessite ajustement des sélecteurs HTML quand le tournoi démarre
+- ChromaDB doit être régénéré après modification des données sources
+- L'analyse YouTube est limitée aux vidéos avec commentaires activés
+
+## 📄 Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## 👨‍💻 Auteur
+
+**Anas Akhssas**
+- GitHub: [@anasakhssas](https://github.com/anasakhssas)
+- Repository: [Chatbot_AFCON_Maroc](https://github.com/anasakhssas/Chatbot_AFCON_Maroc)
+
+## 🙏 Remerciements
+
+- **Groq** pour l'API LLM gratuite et ultra-rapide
+- **HuggingFace** pour les modèles d'embeddings et sentiment analysis
+- **Streamlit** pour le framework web simple et puissant
+- **Wikipedia** pour les données sources fiables
+
 ---
 
-## 📚 Documentation Complète
+**⚽ Allez les Lions de l'Atlas ! 🇲🇦**
+## 🛠️ Technologies Utilisées
 
-- **`README.md`** (ce fichier) - Vue d'ensemble et démarrage rapide
-- **`EXPLICATION_RAG.md`** - Théorie du RAG, processus complet, exemples
-- **`INSTALLATION_RAG.md`** - Guide détaillé d'installation et dépannage
-- **`PROJET_COMPLETE.md`** - Résumé complet du projet
+**Backend & IA :**
+- **Groq API** - LLM ultra-rapide (llama-3.3-70b)
+- **LangChain** - Framework RAG
+- **ChromaDB** - Base vectorielle
+- **HuggingFace** - Embeddings multilingues
+- **CardiffNLP** - Modèle sentiment analysis (95-98% précision)
+
+**Scraping & Données :**
+- **BeautifulSoup4** - Parsing HTML
+- **Requests** - HTTP avec retry logic
+- **YouTube Comment Downloader** - Extraction commentaires
+
+**Interface & Visualisation :**
+- **Streamlit** - Interface web
+- **Plotly** - Graphiques interactifs
+- **Matplotlib** - Visualisations
+
+## 📁 Structure du Projet
+
+```
+Chatbot_AFCON_Maroc/
+├── src/
+│   ├── app.py                    # Application Streamlit (point d'entrée)
+│   ├── pipeline/
+│   │   ├── real_scraper.py       # Scraper multi-sources optimisé
+│   │   ├── pipeline.py           # Pipeline ETL
+│   │   └── auto_pipeline.py      # Automatisation
+│   ├── rag/
+│   │   ├── chatbot.py            # Chatbot RAG
+│   │   ├── vectorizer.py         # Vectorisation ChromaDB
+│   │   └── config.py             # Configuration
+│   └── sentiment/
+│       ├── youtube_analyzer.py   # Analyseur sentiment YouTube
+│       └── visualizer.py         # Graphiques et visualisations
+├── data/
+│   ├── raw/                      # Données brutes scrapées
+│   └── transformed/              # Données transformées pour RAG
+├── chroma_db/                    # Base vectorielle (généré auto)
+├── tests/                        # Tests unitaires
+└── requirements.txt              # Dépendances Python
+```
+
+## 🔧 Commandes Utiles
+
+### Régénérer les Données
+
+```bash
+# Scraper les données Wikipedia
+python -m src.pipeline.real_scraper
+
+# Transformer les données
+python -m src.pipeline.pipeline
+
+# Vectoriser dans ChromaDB
+python -m src.rag.vectorizer
+```
+
+### Tests
+
+```bash
+# Tester l'analyse de sentiment
+python tests/test_sentiment.py
+
+# Tester le chatbot en mode CLI
+python -m src.rag.chatbot
+```
+
+## 📊 Données Sources
+
+**Actuellement actives :**
+- Wikipedia FR : https://fr.wikipedia.org/wiki/Coupe_d%27Afrique_des_nations_de_football_2025
+- Wikipedia EN : https://en.wikipedia.org/wiki/2025_Africa_Cup_of_Nations
+
+**Prêtes pour activation :**
+- BBC Sport : https://www.bbc.com/sport/africa
+- ESPN : https://www.espn.com/soccer/
+- FlashScore : https://www.flashscore.com/football/africa/africa-cup-of-nations/
+
+## 🎯 Exemples de Questions
+
+**Informations Générales :**
+- Où se déroule la CAN 2025 ?
+- Quelles sont les dates du tournoi ?
+- Combien d'équipes participent ?
+
+**Équipes & Joueurs :**
+- Qui sont les meilleurs buteurs ?
+- Quelles équipes sont dans le groupe A ?
+- Quel pays est tenant du titre ?
+
+**Stades & Infrastructure :**
+- Quels stades accueillent les matchs ?
+- Quelle est la capacité du stade principal ?
+- Dans quelles villes se jouent les matchs ?
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! Pour contribuer :
+
+1. Forkez le projet
+2. Créez une branche (`git checkout -b feature/AmazingFeature`)
+3. Committez vos changements (`git commit -m 'Add AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrez une Pull Request
+
+## 📝 Documentation
+
+- **Guide d'Analyse de Sentiment** : `GUIDE_ANALYSE_SENTIMENT.md`
+- **Configuration RAG** : Voir `src/rag/config.py`
+- **Scraper Best Practices** : Documentation intégrée dans `real_scraper.py`
+
+## 🐛 Problèmes Connus
+
+- Le scraping BBC/ESPN/FlashScore nécessite ajustement des sélecteurs HTML quand le tournoi démarre
+- ChromaDB doit être régénéré après modification des données sources
+- L'analyse YouTube est limitée aux vidéos avec commentaires activés
+
+## 📄 Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## 👨‍💻 Auteur
+
+**Anas Akhssas**
+- GitHub: [@anasakhssas](https://github.com/anasakhssas)
+- Repository: [Chatbot_AFCON_Maroc](https://github.com/anasakhssas/Chatbot_AFCON_Maroc)
+
+## 🙏 Remerciements
+
+- **Groq** pour l'API LLM gratuite et ultra-rapide
+- **HuggingFace** pour les modèles d'embeddings et sentiment analysis
+- **Streamlit** pour le framework web simple et puissant
+- **Wikipedia** pour les données sources fiables
 
 ---
 
-## 🚧 Roadmap
-
-### ✅ Phase 1: Pipeline ETL (Terminé)
-- [x] Web scraping avec retry
-- [x] Générateur de données démo
-- [x] Transformation pour RAG
-- [x] Dataset combiné
-
-### ✅ Phase 2: Système RAG (Terminé)
-- [x] Vectorisation OpenAI
-- [x] ChromaDB
-- [x] Chatbot Q&A LangChain
-- [x] Mode interactif
-- [x] Documentation complète
-
-### 🔄 Phase 3: API Backend (En cours)
-- [ ] FastAPI application
-- [ ] Endpoints REST (/chat, /health, /stats)
-- [ ] CORS configuration
-- [ ] Error handling
-- [ ] API documentation (Swagger)
-
-### 📋 Phase 4: Interface Utilisateur (À venir)
-- [ ] Streamlit/Gradio UI
-- [ ] Chat history display
-- [ ] Source citations
-- [ ] Export conversations
-- [ ] Multi-language support
+**⚽ Allez les Lions de l'Atlas ! 🇲🇦**
 
 ### 🔮 Phase 5: Amélioration (Futur)
 - [ ] Fine-tuning du modèle
