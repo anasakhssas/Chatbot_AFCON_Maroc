@@ -72,16 +72,24 @@ class AutoPipeline:
     
     def run_extraction(self) -> bool:
         """
-        Exécuter l'extraction des données
+        Exécuter l'extraction des données (données réelles + démo)
         
         Returns:
             True si réussi, False sinon
         """
-        logger.info("📥 Extraction des données...")
+        logger.info("📥 Extraction des données réelles et démo...")
         try:
+            # 1. Scraper les données réelles
+            from ..pipeline.real_scraper import CANRealScraper
+            real_scraper = CANRealScraper()
+            real_data_path = real_scraper.scrape_all()
+            logger.info(f"✅ Données réelles extraites: {real_data_path}")
+            
+            # 2. Ajouter des données démo supplémentaires si nécessaire
             from ..pipeline.demo_scraper import save_demo_data
-            raw_data_path = save_demo_data()
-            logger.info(f"✅ Extraction réussie: {raw_data_path}")
+            demo_data_path = save_demo_data()
+            logger.info(f"✅ Données démo ajoutées: {demo_data_path}")
+            
             return True
         except Exception as e:
             logger.error(f"❌ Erreur lors de l'extraction: {e}")

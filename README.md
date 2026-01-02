@@ -7,11 +7,11 @@ Chatbot intelligent avec système RAG (Retrieval-Augmented Generation) pour rép
 
 ### Phase 1: Pipeline ETL ✅
 - ✅ Web scraping automatisé avec gestion d'erreurs
-- ✅ Collecte depuis sources officielles (CAF, BBC Sport)
+- ✅ Collecte depuis sources officielles (Wikipedia, BBC Sport, ESPN, FlashScore)
 - ✅ Extraction structurée (titre, contenu, date, lien, mots-clés)
 - ✅ Transformation pour RAG (enrichissement, métadonnées)
 - ✅ Stockage JSON optimisé
-- ✅ Générateur de données démo (20 articles réalistes)
+- ✅ Scraper optimisé avec retry logic, validation, quality scoring
 
 ### Phase 2: Système RAG ✅
 - ✅ Vectorisation avec HuggingFace Embeddings (gratuit, local)
@@ -20,14 +20,24 @@ Chatbot intelligent avec système RAG (Retrieval-Augmented Generation) pour rép
 - ✅ Chatbot Q&A avec LangChain + Groq (llama-3.3-70b-versatile)
 - ✅ Mode interactif avec historique
 - ✅ Support multi-questions (batch)
+- ✅ Aucune hallucination (données réelles uniquement)
 
-### Phase 3: Interface Web ✅ NOUVEAU
+### Phase 3: Interface Web ✅
 - ✅ Interface Streamlit moderne et responsive
 - ✅ Chat interactif en temps réel
 - ✅ Affichage des sources avec métadonnées
 - ✅ Sidebar avec statistiques et exemples
 - ✅ Design aux couleurs du Maroc 🇲🇦
 - ✅ Questions prédéfinies pour démarrage rapide
+
+### Phase 4: Analyse de Sentiment ✅ NOUVEAU
+- ✅ Extraction de commentaires YouTube
+- ✅ Analyse de sentiment multilingue (FR/EN/AR)
+- ✅ Classification: Positif / Neutre / Négatif
+- ✅ Visualisations interactives (camembert, barres, nuages de mots)
+- ✅ Top 5 commentaires positifs/négatifs
+- ✅ Score de confiance pour chaque analyse
+- ✅ Support jusqu'à 1000 commentaires par vidéo
 
 ## 📦 Installation
 
@@ -37,7 +47,7 @@ Chatbot intelligent avec système RAG (Retrieval-Augmented Generation) pour rép
 # Activer l'environnement virtuel
 .\venv\Scripts\Activate.ps1
 
-# Installer toutes les dépendances (ETL + RAG + Streamlit)
+# Installer toutes les dépendances (ETL + RAG + Streamlit + Sentiment Analysis)
 pip install -r requirements.txt
 ```
 
@@ -72,23 +82,36 @@ Puis ouvrez : **http://localhost:8501** dans votre navigateur
 - 💬 Chat interactif avec historique
 - 📚 Affichage des sources pour chaque réponse
 - 💡 Questions d'exemple prédéfinies
-- 📊 Statistiques en temps réel
-- 🔄 Bouton "Rafraîchir les données" pour régénérer le pipeline
+- 📊 Analyse de sentiment des commentaires YouTube
+- 🔄 Navigation entre Chatbot et Analyse de Sentiment
 - 🎨 Design moderne aux couleurs du Maroc
+
+**Fonctionnalités d'analyse de sentiment :**
+- 📥 Extraction automatique de commentaires YouTube
+- 🤖 Analyse de sentiment multilingue (FR/EN/AR)
+- 📊 Visualisations: camembert, barres, nuages de mots
+- 💬 Top 5 commentaires positifs/négatifs
+- 📈 Scores de confiance pour chaque analyse
 
 ### 🖥️ Mode Terminal (CLI - Manuel)
 
 Si vous voulez exécuter manuellement chaque étape :
 
 ```powershell
-# 1️⃣ Générer les données et les transformer
+# 1️⃣ Scraper les données réelles (Wikipedia + sources)
+python -m src.pipeline.real_scraper
+
+# 2️⃣ Transformer les données
 python -m src.pipeline.pipeline
 
-# 2️⃣ Vectoriser les données (créer ChromaDB)
+# 3️⃣ Vectoriser les données (créer ChromaDB)
 python -m src.rag.vectorizer
 
-# 3️⃣ Tester le chatbot en mode CLI
+# 4️⃣ Tester le chatbot en mode CLI
 python -m src.rag.chatbot
+
+# 5️⃣ Tester l'analyse de sentiment (optionnel)
+python tests/test_sentiment.py
 ```
 
 **Note :** En mode web, ces étapes sont automatiques !
@@ -105,26 +128,23 @@ python -m src.rag.chatbot
 python -m src.pipeline.pipeline
 ```
 
-#### Option B: Étapes Séparées
+#### Option B: Scraping Multi-Sources
 ```powershell
-# 1. Extraction uniquement
-python -m src.pipeline.demo_scraper
+# 1. Scraping réel (Wikipedia + BBC + ESPN + FlashScore)
+python -m src.pipeline.real_scraper
 
-# 2. Transformation uniquement
+# 2. Transformation des données
 python -m src.pipeline.transform
-
-# 3. Scraping réel (en développement)
-python -m src.pipeline.scraper
 ```
 
-### Phase 2: Système RAG ⭐ NOUVEAU
+### Phase 2: Système RAG ⭐
 
 #### Vectorisation (Une seule fois)
 ```powershell
 # Créer la base vectorielle ChromaDB
 python -m src.rag.vectorizer
 ```
-**Résultat:** 20 documents indexés dans `chroma_db/`
+**Résultat:** Documents indexés dans `chroma_db/`
 
 #### Chatbot Interactif
 ```powershell
@@ -136,6 +156,23 @@ python -m src.rag.chatbot
 - Poser une question sur la CAN 2025
 - `history` - Voir l'historique
 - `quit` - Quitter
+
+### Phase 3: Analyse de Sentiment ⭐ NOUVEAU
+
+#### Test via script
+```powershell
+# Tester l'analyseur de sentiment
+python tests/test_sentiment.py
+```
+
+#### Utilisation via interface web
+1. Lancez l'application: `streamlit run src/app.py`
+2. Sélectionnez "📊 Analyse de Sentiment" dans la sidebar
+3. Collez une URL YouTube
+4. Cliquez sur "Analyser"
+5. Explorez les résultats et visualisations
+
+**Documentation complète:** Voir `GUIDE_ANALYSE_SENTIMENT.md`
 
 #### Exemples Avancés
 ```powershell
@@ -437,7 +474,7 @@ python examples\rag_examples.py
 
 ## 🤝 Contribution
 
-Ce projet est développé dans le cadre d'un PFE (Projet de Fin d'Études).
+Ce projet est développé dans le cadre d'un Stage PFE.
 
 ---
 

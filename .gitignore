@@ -38,6 +38,16 @@ venv/
 data/daily_fetch/*.json
 data/daily_fetch/*.csv
 data/daily_fetch/*.txt
+data/raw/*.json
+data/transformed/*.json
+
+# ChromaDB
+chroma_db/
+
+# Test files
+test_*.py
+quick_*.py
+*_test.py
 
 # Logs
 *.log

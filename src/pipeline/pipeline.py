@@ -1,7 +1,7 @@
 """Complete ETL pipeline: Extract -> Transform -> Load"""
 import logging
 from pathlib import Path
-from .demo_scraper import save_demo_data
+# from .demo_scraper import save_demo_data  # DÉSACTIVÉ - Contient données fictives
 from .transform import DataTransformer
 
 logging.basicConfig(
@@ -14,23 +14,29 @@ logger = logging.getLogger(__name__)
 def run_complete_pipeline():
     """
     Run the complete ETL pipeline:
-    1. Extract: Generate/scrape news data
+    1. Extract: Generate/scrape news data (DÉSACTIVÉ - utiliser real_scraper.py)
     2. Transform: Prepare data for RAG
     3. Ready for Load: Data is ready for vector database
     """
     print("=" * 80)
-    print("🚀 PIPELINE COMPLET CAN 2025 - Extract → Transform → Ready for RAG")
+    print("🚀 PIPELINE CAN 2025 - Transform → Ready for RAG")
     print("=" * 80)
     
-    # Step 1: Extract (Demo Data)
+    # Step 1: Extract (DÉSACTIVÉ - utiliser real_scraper.py pour données réelles)
     print("\n📥 ÉTAPE 1: EXTRACTION DES DONNÉES")
     print("-" * 80)
-    try:
-        raw_data_path = save_demo_data()
-        print(f"✅ Extraction réussie: {raw_data_path}")
-    except Exception as e:
-        print(f"❌ Erreur lors de l'extraction: {e}")
+    print("⚠️  Extraction automatique désactivée")
+    print("💡 Utilisez: python -m src.pipeline.real_scraper")
+    print("✅ Données brutes déjà disponibles dans data/daily_fetch/")
+    
+    # Vérifier que des données existent
+    data_dir = Path(__file__).parent.parent.parent / "data" / "daily_fetch"
+    if not data_dir.exists() or not list(data_dir.glob("*.json")):
+        print("\n❌ ERREUR: Aucune donnée brute trouvée!")
+        print("💡 Exécutez d'abord: python -m src.pipeline.real_scraper")
         return
+    
+    raw_data_path = str(data_dir)
     
     # Step 2: Transform
     print("\n🔄 ÉTAPE 2: TRANSFORMATION POUR RAG")

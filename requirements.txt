@@ -22,6 +22,16 @@ torch==2.1.0
 # Web Interface
 streamlit>=1.52.0
 
+# Sentiment Analysis
+transformers>=4.30.0
+youtube-comment-downloader>=0.1.0
+google-api-python-client>=2.100.0
+
+# Visualizations
+plotly>=5.14.0
+wordcloud>=1.9.0
+matplotlib>=3.7.0
+
 # Logging
 colorlog==6.8.2
 

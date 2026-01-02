@@ -12,6 +12,13 @@ load_dotenv()
 
 from src.rag.chatbot import ChatbotCAN2025
 from src.rag.config import RAGConfig
+from src.sentiment.youtube_analyzer import YouTubeSentimentAnalyzer
+from src.sentiment.visualizer import (
+    create_sentiment_pie_chart, 
+    create_sentiment_bar_chart,
+    create_wordcloud,
+    create_confidence_distribution
+)
 import logging
 
 # Configuration de la page
@@ -252,8 +259,169 @@ def display_sources(sources):
                 st.info(preview)
 
 
-def main():
-    # Header amélioré avec émojis animés
+def sentiment_page():
+    """Page d'analyse de sentiment YouTube"""
+    
+    # Header
+    st.markdown("""
+    <div class="main-header">
+        <h1>📊 Analyse de Sentiment des Supporters</h1>
+        <p>Analysez les commentaires YouTube sur la CAN 2025</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Instructions
+    st.info("💡 **Comment utiliser:**  \n"
+            "1. Copiez l'URL d'une vidéo YouTube sur la CAN 2025  \n"
+            "2. Collez l'URL ci-dessous  \n"
+            "3. Cliquez sur 'Analyser'  \n"
+            "4. Découvrez le sentiment des supporters (positif, neutre, négatif)")
+    
+    # Input URL
+    url = st.text_input(
+        "🔗 URL de la vidéo YouTube",
+        placeholder="https://www.youtube.com/watch?v=...",
+        help="Exemple: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    )
+    
+    # Options avancées
+    with st.expander("⚙️ Options avancées"):
+        max_comments = st.slider(
+            "Nombre maximum de commentaires à analyser",
+            min_value=50,
+            max_value=1000,
+            value=500,
+            step=50,
+            help="Plus de commentaires = analyse plus précise mais plus lente"
+        )
+        
+        show_confidence = st.checkbox("Afficher la distribution des scores de confiance", value=False)
+    
+    # Bouton d'analyse
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        analyze_button = st.button("🔍 Analyser les commentaires", use_container_width=True, type="primary")
+    
+    # Analyse
+    if analyze_button and url:
+        try:
+            # Initialisation de l'analyseur avec cache
+            @st.cache_resource
+            def get_analyzer():
+                return YouTubeSentimentAnalyzer()
+            
+            analyzer = get_analyzer()
+            
+            # Progress bar
+            progress_bar = st.progress(0, text="Initialisation...")
+            
+            # Étape 1: Extraction des commentaires
+            progress_bar.progress(20, text="📥 Téléchargement des commentaires...")
+            stats = analyzer.analyze_video(url, max_comments=max_comments)
+            
+            progress_bar.progress(100, text="✅ Analyse terminée!")
+            progress_bar.empty()
+            
+            # Résultats
+            st.success(f"✅ {stats['total_comments']} commentaires analysés avec succès!")
+            
+            # Métriques principales
+            st.markdown("### 📈 Résultats Globaux")
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.metric(
+                    "😊 Positif",
+                    f"{stats['positive']['count']} commentaires",
+                    f"{stats['positive']['percentage']:.1f}%"
+                )
+            
+            with col2:
+                st.metric(
+                    "😐 Neutre",
+                    f"{stats['neutral']['count']} commentaires",
+                    f"{stats['neutral']['percentage']:.1f}%"
+                )
+            
+            with col3:
+                st.metric(
+                    "😢 Négatif",
+                    f"{stats['negative']['count']} commentaires",
+                    f"{stats['negative']['percentage']:.1f}%"
+                )
+            
+            st.markdown("---")
+            
+            # Graphiques
+            st.markdown("### 📊 Visualisations")
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                # Graphique en camembert
+                pie_fig = create_sentiment_pie_chart(stats)
+                st.plotly_chart(pie_fig, use_container_width=True)
+            
+            with col2:
+                # Graphique en barres
+                bar_fig = create_sentiment_bar_chart(stats)
+                st.plotly_chart(bar_fig, use_container_width=True)
+            
+            # Distribution de confiance
+            if show_confidence:
+                st.markdown("### 📉 Distribution des Scores de Confiance")
+                conf_fig = create_confidence_distribution(stats)
+                st.plotly_chart(conf_fig, use_container_width=True)
+            
+            st.markdown("---")
+            
+            # Top commentaires
+            st.markdown("### 💬 Top 5 Commentaires")
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.markdown("#### 😊 **Commentaires Positifs**")
+                if stats['top_positive']:
+                    for i, comment in enumerate(stats['top_positive'], 1):
+                        with st.container():
+                            st.markdown(f"**{i}. {comment['author']}** "
+                                      f"_(👍 {comment['likes']} likes)_")
+                            st.markdown(f"> {comment['text'][:200]}...")
+                            st.caption(f"Confiance: {comment['confidence']:.2%} • {comment.get('time', '')}")
+                            st.markdown("---")
+                else:
+                    st.info("Aucun commentaire positif trouvé")
+            
+            with col2:
+                st.markdown("#### 😢 **Commentaires Négatifs**")
+                if stats['top_negative']:
+                    for i, comment in enumerate(stats['top_negative'], 1):
+                        with st.container():
+                            st.markdown(f"**{i}. {comment['author']}** "
+                                      f"_(👍 {comment['likes']} likes)_")
+                            st.markdown(f"> {comment['text'][:200]}...")
+                            st.caption(f"Confiance: {comment['confidence']:.2%} • {comment.get('time', '')}")
+                            st.markdown("---")
+                else:
+                    st.info("Aucun commentaire négatif trouvé")
+            
+        except ValueError as e:
+            st.error(f"❌ Erreur: {str(e)}")
+            st.info("Vérifiez que l'URL est valide et que la vidéo contient des commentaires.")
+        
+        except Exception as e:
+            st.error(f"❌ Une erreur s'est produite: {str(e)}")
+            st.exception(e)
+    
+    elif analyze_button and not url:
+        st.warning("⚠️ Veuillez entrer une URL YouTube")
+
+
+def chatbot_page():
+    """Page principale du chatbot"""
+    
+    # Header avec couleurs du Maroc
     st.markdown("""
     <div class="main-header">
         <h1>⚽ Chatbot CAN 2025 - Maroc 🇲🇦</h1>
@@ -263,141 +431,6 @@ def main():
         </p>
     </div>
     """, unsafe_allow_html=True)
-
-    # Sidebar améliorée
-    with st.sidebar:
-        # Logo et titre
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_of_Morocco.svg/320px-Flag_of_Morocco.svg.png", 
-                     width=80)
-        with col2:
-            st.markdown("### CAN 2025")
-            st.caption("Chatbot IA")
-        
-        st.markdown("---")
-        
-        # Section À propos avec icônes
-        st.markdown("## 🤖 Technologie")
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
-                    padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
-            <div style="margin: 0.5rem 0;">
-                <strong>🧠 LLM:</strong> Groq (llama-3.3-70b)<br>
-                <small style="color: #666;">Ultra-rapide, 100% gratuit</small>
-            </div>
-            <div style="margin: 0.5rem 0;">
-                <strong>📚 RAG:</strong> LangChain + ChromaDB<br>
-                <small style="color: #666;">Recherche sémantique avancée</small>
-            </div>
-            <div style="margin: 0.5rem 0;">
-                <strong>🔍 Embeddings:</strong> HuggingFace<br>
-                <small style="color: #666;">Multilingue (FR/AR/EN)</small>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("---")
-        
-        # Statistiques en temps réel
-        st.markdown("## 📊 Statistiques")
-        config = RAGConfig()
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.metric("Documents", "20", delta="Actif", delta_color="normal")
-        with col2:
-            st.metric("Sources", "3", delta="Par réponse", delta_color="off")
-        
-        st.metric("Modèle LLM", config.LLM_MODEL.split('-')[0].upper())
-        st.progress(100, text="✅ Système opérationnel")
-        
-        st.markdown("---")
-        
-        # Actions du pipeline
-        st.markdown("## 🔄 Actions")
-        
-        col1, col2 = st.columns([2, 1])
-        with col1:
-            refresh_button = st.button("🔄 Rafraîchir", use_container_width=True, type="primary")
-        with col2:
-            if st.button("ℹ️", use_container_width=True):
-                st.info("Régénère les données : extraction → transformation → vectorisation")
-        
-        if refresh_button:
-            from src.pipeline.auto_pipeline import AutoPipeline
-            with st.spinner("🔄 Régénération complète..."):
-                pipeline = AutoPipeline()
-                success, message = pipeline.ensure_ready(force_refresh=True)
-                if success:
-                    st.success(f"✅ {message}")
-                    st.cache_resource.clear()
-                    st.rerun()
-                else:
-                    st.error(f"❌ {message}")
-        
-        st.markdown("---")
-        
-        # Questions prédéfinies avec catégories
-        st.markdown("### 💡 Questions rapides")
-        
-        # Onglets pour catégories
-        tab1, tab2, tab3 = st.tabs(["⚽ Matchs", "🏆 Stats", "📰 Actu"])
-        
-        with tab1:
-            questions_matchs = [
-                "Qui a marqué pour le Maroc ?",
-                "Résultat Égypte vs Zimbabwe",
-                "Prochain match du Maroc"
-            ]
-            for q in questions_matchs:
-                if st.button(q, key=f"match_{q}", use_container_width=True):
-                    st.session_state.example_question = q
-        
-        with tab2:
-            questions_stats = [
-                "Meilleur buteur du tournoi",
-                "Classement Groupe E",
-                "Statistiques Riyad Mahrez"
-            ]
-            for q in questions_stats:
-                if st.button(q, key=f"stat_{q}", use_container_width=True):
-                    st.session_state.example_question = q
-        
-        with tab3:
-            questions_actu = [
-                "Équipes en huitièmes",
-                "Arbitres du tournoi",
-                "Lieu et dates CAN 2025"
-            ]
-            for q in questions_actu:
-                if st.button(q, key=f"actu_{q}", use_container_width=True):
-                    st.session_state.example_question = q
-        
-        st.markdown("---")
-        
-        # Aide rapide
-        with st.expander("❓ Aide"):
-            st.markdown("""
-            **Comment utiliser :**
-            1. Tapez votre question en français
-            2. Le chatbot recherche dans 20 documents
-            3. Réponse générée avec sources
-            
-            **Exemples de questions :**
-            - "Score du match X contre Y"
-            - "Qui est le meilleur buteur ?"
-            - "Quand joue le Maroc ?"
-            """)
-        
-        # Footer avec crédits
-        st.markdown("---")
-        st.markdown("""
-        <div style="text-align: center; font-size: 0.8rem; color: #666;">
-            <p>Développé avec ❤️</p>
-            <p>© 2025 CAN Maroc</p>
-        </div>
-        """, unsafe_allow_html=True)
 
     # Initialisation du chatbot
     if "chatbot" not in st.session_state:
@@ -484,37 +517,49 @@ def main():
                         "avatar": "🤖"
                     })
 
-    # Footer avec statistiques avancées
-    st.markdown("---")
-    st.markdown('<div class="footer-stats">', unsafe_allow_html=True)
-    
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        num_conversations = (len(st.session_state.messages) - 1) // 2  # -1 pour le message de bienvenue
-        st.markdown("### 💬")
-        st.markdown(f"**{num_conversations}** conversations")
-    
-    with col2:
-        st.markdown("### ⚡")
-        st.markdown("**Groq AI** • Gratuit")
-    
-    with col3:
-        st.markdown("### 📊")
-        st.markdown("**20** documents RAG")
-    
-    with col4:
-        from datetime import datetime
-        st.markdown("### 📅")
-        st.markdown(f"**{datetime.now().strftime('%d/%m/%Y')}**")
-    
-    st.markdown('</div>', unsafe_allow_html=True)
-    
     # Bouton pour réinitialiser la conversation
+    st.markdown("---")
     if len(st.session_state.messages) > 1:
         if st.button("🗑️ Nouvelle conversation", use_container_width=True):
             st.session_state.messages = []
             st.rerun()
+
+
+def main():
+    """Fonction principale"""
+    
+    # Sidebar pour navigation
+    with st.sidebar:
+        st.markdown("### 🧭 Navigation")
+        page = st.radio(
+            "Choisir une page",
+            ["💬 Chatbot CAN 2025", "📊 Analyse de Sentiment"],
+            label_visibility="collapsed"
+        )
+        
+        st.markdown("---")
+        
+        # Informations
+        st.markdown("### ℹ️ À propos")
+        st.markdown("""
+        **Chatbot CAN 2025 Maroc**
+        
+        - 🤖 Assistant intelligent CAN 2025
+        - 📊 Analyse sentiment supporters
+        - ⚡ Powered by Groq LLM
+        - 🔍 ChromaDB vectorisation
+        
+        ---
+        
+        📅 **CAN 2025 au Maroc**  
+        21 Déc 2025 - 18 Jan 2026
+        """)
+    
+    # Afficher la page
+    if page == "💬 Chatbot CAN 2025":
+        chatbot_page()
+    else:
+        sentiment_page()
 
 
 if __name__ == "__main__":
