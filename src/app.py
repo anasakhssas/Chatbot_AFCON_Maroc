@@ -21,6 +21,7 @@ from src.sentiment.visualizer import (
 )
 from src.summary.match_summarizer import MatchSummarizer
 from src.summary.exporters import PDFExporter, ImageExporter
+from src.avatar.avatar_controller import AvatarController
 import logging
 
 # Configuration de la page
@@ -535,7 +536,7 @@ def main():
         st.markdown("### 🧭 Navigation")
         page = st.radio(
             "Choisir une page",
-            ["💬 Chatbot CAN 2025", "📊 Analyse de Sentiment", "📝 Résumés de Matchs"],
+            ["💬 Chatbot CAN 2025", "📊 Analyse de Sentiment", "📝 Résumés de Matchs", "🎭 Avatar Historique"],
             label_visibility="collapsed"
         )
         
@@ -562,8 +563,209 @@ def main():
         chatbot_page()
     elif page == "📊 Analyse de Sentiment":
         sentiment_page()
-    else:
+    elif page == "📝 Résumés de Matchs":
         summary_page()
+    else:
+        avatar_page()
+
+
+def avatar_page():
+    """Page Avatar Virtuel - Expert Historique CAN"""
+    
+    st.markdown("""
+    <div class="main-header">
+        <h1>🎭 Avatar Virtuel - Expert Historique CAN</h1>
+        <p>Posez vos questions sur l'histoire de la Coupe d'Afrique des Nations</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Initialiser l'avatar (avec cache)
+    @st.cache_resource
+    def init_avatar():
+        try:
+            return AvatarController()
+        except Exception as e:
+            st.error(f"❌ Erreur initialisation avatar : {e}")
+            return None
+    
+    avatar = init_avatar()
+    
+    if not avatar:
+        st.warning("⚠️ L'avatar n'a pas pu être initialisé.")
+        return
+    
+    # Layout en colonnes
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        # Avatar statique (image placeholder)
+        st.markdown("""
+        <div style="
+            background: linear-gradient(135deg, #C1272D 0%, #006233 100%);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        ">
+            <div style="font-size: 120px; margin: 20px 0;">
+                🎭
+            </div>
+            <h2 style="color: white; margin: 10px 0;">Expert CAN</h2>
+            <p style="color: rgba(255,255,255,0.9); margin: 5px 0;">
+                Spécialiste de l'historique de la Coupe d'Afrique
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # État de l'avatar
+        if 'avatar_speaking' not in st.session_state:
+            st.session_state.avatar_speaking = False
+        
+        if st.session_state.avatar_speaking:
+            st.markdown("""
+            <div style="
+                text-align: center;
+                color: #C1272D;
+                font-size: 18px;
+                font-weight: bold;
+                animation: pulse 1.5s infinite;
+            ">
+                🎤 En train de parler...
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+            <div style="
+                text-align: center;
+                color: #006233;
+                font-size: 16px;
+            ">
+                💤 En attente de question
+            </div>
+            """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("### 💬 Posez votre question")
+        
+        # Questions suggérées
+        st.markdown("**💡 Questions populaires :**")
+        popular_questions = avatar.get_popular_questions()
+        
+        # Boutons de questions suggérées (2 colonnes)
+        for i in range(0, len(popular_questions), 2):
+            subcol1, subcol2 = st.columns(2)
+            with subcol1:
+                if i < len(popular_questions):
+                    if st.button(f"📌 {popular_questions[i][:30]}...", key=f"q_{i}", use_container_width=True):
+                        st.session_state.selected_question = popular_questions[i]
+            with subcol2:
+                if i+1 < len(popular_questions):
+                    if st.button(f"📌 {popular_questions[i+1][:30]}...", key=f"q_{i+1}", use_container_width=True):
+                        st.session_state.selected_question = popular_questions[i+1]
+        
+        st.markdown("---")
+        
+        # Input personnalisé
+        question = st.text_area(
+            "Ou posez votre propre question :",
+            value=st.session_state.get('selected_question', ''),
+            height=100,
+            placeholder="Ex: Quand le Maroc a-t-il gagné la CAN ?"
+        )
+        
+        # Bouton demander
+        if st.button("🎤 Poser la Question à l'Avatar", type="primary", use_container_width=True):
+            if not question:
+                st.warning("⚠️ Veuillez poser une question d'abord.")
+            else:
+                st.session_state.avatar_speaking = True
+                
+                with st.spinner("🤖 L'avatar réfléchit..."):
+                    try:
+                        result = avatar.process_question(question)
+                        
+                        if result['success']:
+                            st.success("✅ Réponse générée !")
+                            
+                            # Afficher la réponse texte
+                            st.markdown("### 📝 Transcription")
+                            st.markdown(
+                                f"""
+                                <div style="
+                                    background: #f8f9fa;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    border-left: 4px solid #006233;
+                                    margin: 10px 0;
+                                ">
+                                    {result['response']}
+                                </div>
+                                """,
+                                unsafe_allow_html=True
+                            )
+                            
+                            # Lire l'audio
+                            st.markdown("### 🔊 Écouter la réponse")
+                            if result['audio_path'] and os.path.exists(result['audio_path']):
+                                st.audio(result['audio_path'], format='audio/mp3')
+                                
+                                # Métadonnées
+                                col_meta1, col_meta2 = st.columns(2)
+                                with col_meta1:
+                                    st.metric("⏱️ Durée", f"{result['duration']}s")
+                                with col_meta2:
+                                    st.metric("📊 Mots", len(result['response'].split()))
+                            else:
+                                st.error("❌ Fichier audio introuvable")
+                            
+                            # Sauvegarder dans l'historique
+                            if 'avatar_history' not in st.session_state:
+                                st.session_state.avatar_history = []
+                            
+                            st.session_state.avatar_history.append({
+                                'question': question,
+                                'response': result['response'],
+                                'audio': result['audio_path'],
+                                'timestamp': result['timestamp']
+                            })
+                            
+                        else:
+                            st.error(f"❌ Erreur : {result.get('error', 'Erreur inconnue')}")
+                        
+                    except Exception as e:
+                        st.error(f"❌ Erreur lors du traitement : {e}")
+                        logger.error(f"Erreur avatar: {e}")
+                    
+                    finally:
+                        st.session_state.avatar_speaking = False
+                        if 'selected_question' in st.session_state:
+                            del st.session_state.selected_question
+    
+    # Historique des questions
+    st.markdown("---")
+    st.markdown("### 📜 Historique de la Conversation")
+    
+    if 'avatar_history' not in st.session_state or len(st.session_state.avatar_history) == 0:
+        st.info("📭 Aucune question posée pour le moment. Commencez par poser une question ci-dessus !")
+    else:
+        st.success(f"✅ {len(st.session_state.avatar_history)} question(s) dans l'historique")
+        
+        # Afficher l'historique (plus récent en premier)
+        for idx, item in enumerate(reversed(st.session_state.avatar_history), 1):
+            with st.expander(f"❓ {item['question'][:60]}..." if len(item['question']) > 60 else f"❓ {item['question']}"):
+                st.markdown(f"**⏰ {item['timestamp'][:19]}**")
+                st.markdown("---")
+                st.markdown(f"**Réponse :**")
+                st.write(item['response'])
+                
+                if item['audio'] and os.path.exists(item['audio']):
+                    st.audio(item['audio'], format='audio/mp3')
+        
+        # Bouton vider l'historique
+        if st.button("🗑️ Vider l'historique", use_container_width=True):
+            st.session_state.avatar_history = []
+            st.rerun()
 
 
 def summary_page():

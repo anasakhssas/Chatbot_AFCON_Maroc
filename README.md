@@ -28,6 +28,15 @@ Application web intelligente avec analyse de sentiment pour la CAN 2025 au Maroc
 - **100% gratuit** avec Groq API (30 req/min)
 - Format structuré : Score, Buts, Stats, Homme du match, Contexte
 
+### 🎭 Avatar Virtuel - Expert Historique CAN ⭐ NOUVEAU
+- **Expert virtuel** répondant vocalement aux questions sur l'historique de la CAN
+- **Synthèse vocale** naturelle en français avec gTTS
+- **Base de données complète** : 65 ans d'histoire (1957-2023)
+- **Questions populaires** : Palmarès, records, buteurs, moments légendaires
+- **100% gratuit** : gTTS open-source
+- **Historique de conversation** sauvegardé
+- **Audio téléchargeable** : Format MP3
+
 ### 🔄 Scraper Multi-Sources
 - Wikipedia (FR + EN) ✅
 - BBC Sport (prêt pour tournoi)
@@ -130,6 +139,21 @@ Ouvrez votre navigateur sur : **http://localhost:8501**
 - Exportez l'historique complet en PDF
 - Réutilisez les résumés précédents
 
+### Page Avatar Virtuel ⭐ NOUVEAU
+
+1. **Posez votre question vocalement** sur l'historique de la CAN
+2. **Choisissez parmi les questions populaires** :
+   - "Qui a remporté le plus de CAN ?"
+   - "Quand le Maroc a-t-il gagné ?"
+   - "Qui est le meilleur buteur ?"
+   - Et 7 autres questions...
+3. **Ou posez votre propre question** personnalisée
+4. **L'avatar répond** :
+   - Texte affiché en temps réel
+   - Audio MP3 généré automatiquement
+   - Durée et nombre de mots affichés
+5. **Historique sauvegardé** : Réécoutez les réponses précédentes
+
 ## 🛠️ Technologies Utilisées
 
 **Backend & IA :**
@@ -148,6 +172,10 @@ Ouvrez votre navigateur sur : **http://localhost:8501**
 - **Streamlit** - Interface web
 - **Plotly** - Graphiques interactifs
 - **Matplotlib** - Visualisations
+
+**Avatar & Synthèse Vocale :**
+- **gTTS** - Text-to-Speech gratuit (Google)
+- **Historique CAN** - Base de données 1957-2023
 
 **Export & Génération :**
 - **ReportLab** - Export PDF professionnels
@@ -170,12 +198,16 @@ Chatbot_AFCON_Maroc/
 │   ├── sentiment/
 │   │   ├── youtube_analyzer.py   # Analyseur sentiment YouTube
 │   │   └── visualizer.py         # Graphiques et visualisations
-│   └── summary/                  # ⭐ NOUVEAU
+│   ├── summary/                  # ⭐ NOUVEAU
 │       ├── match_summarizer.py   # Générateur de résumés avec Groq
 │       └── exporters.py          # Export PDF et images
+│   └── avatar/                   # ⭐ NOUVEAU
+│       ├── avatar_controller.py  # Contrôleur avatar et TTS
+│       └── __init__.py
 ├── data/
 │   ├── raw/                      # Données brutes scrapées
-│   └── transformed/              # Données transformées pour RAG
+│   ├── transformed/              # Données transformées pour RAG
+│   └── historique.md             # ⭐ NOUVEAU - Base historique CAN
 ├── chroma_db/                    # Base vectorielle (généré auto)
 ├── exports/                      # Résumés exportés (PDF, images)
 ├── tests/                        # Tests unitaires
