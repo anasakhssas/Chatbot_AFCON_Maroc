@@ -19,6 +19,15 @@ Application web intelligente avec analyse de sentiment pour la CAN 2025 au Maroc
 - Top 5 commentaires les plus populaires
 - Score de confiance à 95-98% avec modèle CardiffNLP
 
+### 📝 Résumés Automatiques de Matchs ⭐ NOUVEAU
+- **Génération de résumés structurés** à partir d'articles longs
+- **3 longueurs disponibles** : Court (50 mots), Moyen (150 mots), Long (300 mots)
+- **Export multi-formats** : PDF, Images (1080x1080), Texte
+- **Batch processing** : Résumez plusieurs matchs en une fois
+- **Cartes sociales** : Visuels prêts pour Instagram/Facebook
+- **100% gratuit** avec Groq API (30 req/min)
+- Format structuré : Score, Buts, Stats, Homme du match, Contexte
+
 ### 🔄 Scraper Multi-Sources
 - Wikipedia (FR + EN) ✅
 - BBC Sport (prêt pour tournoi)
@@ -98,6 +107,29 @@ Ouvrez votre navigateur sur : **http://localhost:8501**
    - Top 5 commentaires positifs/négatifs
    - Scores de confiance
 
+### Page Résumés de Matchs ⭐ NOUVEAU
+
+#### Mode Simple
+1. **Collez le texte d'un article** de match (ou URL Wikipedia)
+2. **Choisissez la longueur** : Court/Moyen/Long
+3. **Sélectionnez la langue** : Français ou English
+4. **Cliquez "Générer"** et obtenez :
+   - Résumé structuré avec score, buts, stats
+   - Export PDF professionnel
+   - Carte sociale 1080x1080 pour réseaux sociaux
+   - Copie du texte
+
+#### Mode Batch
+1. **Collez plusieurs articles** séparés par `---`
+2. **Configurez les options**
+3. **Générez tous les résumés** en une fois (2s entre chaque)
+4. **Téléchargez le PDF compilé** avec tous les résumés
+
+#### Mode Historique
+- Consultez tous les résumés générés dans la session
+- Exportez l'historique complet en PDF
+- Réutilisez les résumés précédents
+
 ## 🛠️ Technologies Utilisées
 
 **Backend & IA :**
@@ -117,6 +149,10 @@ Ouvrez votre navigateur sur : **http://localhost:8501**
 - **Plotly** - Graphiques interactifs
 - **Matplotlib** - Visualisations
 
+**Export & Génération :**
+- **ReportLab** - Export PDF professionnels
+- **Pillow** - Génération d'images et cartes sociales
+
 ## 📁 Structure du Projet
 
 ```
@@ -131,13 +167,17 @@ Chatbot_AFCON_Maroc/
 │   │   ├── chatbot.py            # Chatbot RAG
 │   │   ├── vectorizer.py         # Vectorisation ChromaDB
 │   │   └── config.py             # Configuration
-│   └── sentiment/
-│       ├── youtube_analyzer.py   # Analyseur sentiment YouTube
-│       └── visualizer.py         # Graphiques et visualisations
+│   ├── sentiment/
+│   │   ├── youtube_analyzer.py   # Analyseur sentiment YouTube
+│   │   └── visualizer.py         # Graphiques et visualisations
+│   └── summary/                  # ⭐ NOUVEAU
+│       ├── match_summarizer.py   # Générateur de résumés avec Groq
+│       └── exporters.py          # Export PDF et images
 ├── data/
 │   ├── raw/                      # Données brutes scrapées
 │   └── transformed/              # Données transformées pour RAG
 ├── chroma_db/                    # Base vectorielle (généré auto)
+├── exports/                      # Résumés exportés (PDF, images)
 ├── tests/                        # Tests unitaires
 └── requirements.txt              # Dépendances Python
 ```

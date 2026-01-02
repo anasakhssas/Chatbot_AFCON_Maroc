@@ -49,6 +49,14 @@ test_*.py
 quick_*.py
 *_test.py
 
+# Exports
+exports/
+*.pdf
+*.png
+test_resume.*
+test_card.*
+test_digest.*
+
 # Logs
 *.log
 logs/

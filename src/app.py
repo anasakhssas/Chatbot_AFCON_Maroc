@@ -19,6 +19,8 @@ from src.sentiment.visualizer import (
     create_wordcloud,
     create_confidence_distribution
 )
+from src.summary.match_summarizer import MatchSummarizer
+from src.summary.exporters import PDFExporter, ImageExporter
 import logging
 
 # Configuration de la page
@@ -533,7 +535,7 @@ def main():
         st.markdown("### 🧭 Navigation")
         page = st.radio(
             "Choisir une page",
-            ["💬 Chatbot CAN 2025", "📊 Analyse de Sentiment"],
+            ["💬 Chatbot CAN 2025", "📊 Analyse de Sentiment", "📝 Résumés de Matchs"],
             label_visibility="collapsed"
         )
         
@@ -558,8 +560,387 @@ def main():
     # Afficher la page
     if page == "💬 Chatbot CAN 2025":
         chatbot_page()
-    else:
+    elif page == "📊 Analyse de Sentiment":
         sentiment_page()
+    else:
+        summary_page()
+
+
+def summary_page():
+    """Page de génération de résumés de matchs"""
+    
+    st.markdown("""
+    <div class="main-header">
+        <h1>📝 Résumés Automatiques de Matchs</h1>
+        <p>Générez des résumés structurés et exportables à partir d'articles de matchs</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Initialiser le résumeur (avec cache)
+    @st.cache_resource
+    def init_summarizer():
+        try:
+            return MatchSummarizer()
+        except Exception as e:
+            st.error(f"❌ Erreur initialisation du résumeur : {e}")
+            return None
+    
+    summarizer = init_summarizer()
+    
+    if not summarizer:
+        st.warning("⚠️ Le résumeur n'a pas pu être initialisé. Vérifiez votre GROQ_API_KEY.")
+        return
+    
+    # Onglets pour les différents modes
+    tab1, tab2, tab3 = st.tabs(["📄 Résumé Simple", "📚 Résumés Multiples", "🔍 Résumés Sauvegardés"])
+    
+    # TAB 1 : Résumé simple
+    with tab1:
+        st.markdown("### ✍️ Générer un résumé unique")
+        
+        # Mode d'entrée
+        input_mode = st.radio(
+            "Source du texte",
+            ["📝 Coller le texte", "🔗 URL d'article"],
+            horizontal=True
+        )
+        
+        match_text = ""
+        match_title = ""
+        
+        if input_mode == "📝 Coller le texte":
+            match_title = st.text_input("Titre du match (optionnel)", placeholder="Ex: Maroc vs Égypte - Finale CAN 2025")
+            match_text = st.text_area(
+                "Texte de l'article de match",
+                height=250,
+                placeholder="Collez ici le texte complet de l'article du match (minimum 100 mots)..."
+            )
+        else:
+            from src.scrapers.real_scraper import RealScraper
+            
+            url = st.text_input("URL de l'article", placeholder="https://...")
+            
+            if url and st.button("🔍 Extraire le texte"):
+                with st.spinner("Extraction du contenu..."):
+                    try:
+                        scraper = RealScraper()
+                        results = scraper.scrape_url(url)
+                        
+                        if results and len(results) > 0:
+                            result = results[0]
+                            match_title = result.get('title', '')
+                            match_text = result.get('content', '')
+                            
+                            st.success(f"✅ Texte extrait : {len(match_text)} caractères")
+                            
+                            # Afficher un aperçu
+                            with st.expander("👁️ Aperçu du texte extrait"):
+                                st.write(f"**Titre:** {match_title}")
+                                st.write(f"**Contenu:** {match_text[:500]}...")
+                        else:
+                            st.error("❌ Impossible d'extraire le contenu de cette URL")
+                            
+                    except Exception as e:
+                        st.error(f"❌ Erreur d'extraction : {e}")
+        
+        # Options de génération
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            length = st.selectbox(
+                "Longueur du résumé",
+                ["short", "medium", "long"],
+                format_func=lambda x: {
+                    "short": "📏 Court (~50 mots)",
+                    "medium": "📐 Moyen (~150 mots)",
+                    "long": "📏 Long (~300 mots)"
+                }[x],
+                index=1
+            )
+        
+        with col2:
+            language = st.selectbox(
+                "Langue",
+                ["fr", "en"],
+                format_func=lambda x: "🇫🇷 Français" if x == "fr" else "🇬🇧 English"
+            )
+        
+        # Bouton de génération
+        if st.button("✨ Générer le Résumé", type="primary", use_container_width=True):
+            if not match_text or len(match_text.split()) < 50:
+                st.warning("⚠️ Le texte est trop court. Minimum 50 mots requis.")
+            else:
+                with st.spinner("🔄 Génération du résumé en cours..."):
+                    try:
+                        summary = summarizer.generate_summary(match_text, length, language)
+                        
+                        # Afficher le résumé
+                        st.markdown("---")
+                        st.markdown("### 📋 Résumé Généré")
+                        
+                        # Métadonnées
+                        col1, col2, col3 = st.columns(3)
+                        with col1:
+                            st.metric("📊 Mots", summary['word_count'])
+                        with col2:
+                            st.metric("📅 Longueur", length.capitalize())
+                        with col3:
+                            st.metric("🌐 Langue", language.upper())
+                        
+                        # Résumé dans un container
+                        st.markdown(
+                            f"""
+                            <div style="
+                                background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+                                padding: 2rem;
+                                border-radius: 15px;
+                                border-left: 5px solid #C1272D;
+                                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                                margin: 1rem 0;
+                            ">
+                                {summary['summary'].replace(chr(10), '<br>')}
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
+                        
+                        # Options d'export
+                        st.markdown("### 💾 Exporter le résumé")
+                        
+                        col1, col2, col3 = st.columns(3)
+                        
+                        # Export PDF
+                        with col1:
+                            if st.button("📄 Télécharger PDF", use_container_width=True):
+                                with st.spinner("Génération du PDF..."):
+                                    try:
+                                        pdf_exporter = PDFExporter()
+                                        
+                                        # Créer un dossier exports s'il n'existe pas
+                                        os.makedirs("exports", exist_ok=True)
+                                        
+                                        # Nom de fichier
+                                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                        pdf_path = f"exports/resume_{timestamp}.pdf"
+                                        
+                                        # Ajouter le titre si disponible
+                                        summary['title'] = match_title if match_title else "Résumé de Match"
+                                        
+                                        pdf_exporter.export_single_summary(summary, pdf_path)
+                                        
+                                        # Téléchargement
+                                        with open(pdf_path, "rb") as f:
+                                            st.download_button(
+                                                label="⬇️ Cliquez pour télécharger",
+                                                data=f.read(),
+                                                file_name=f"resume_match_{timestamp}.pdf",
+                                                mime="application/pdf",
+                                                use_container_width=True
+                                            )
+                                        
+                                        st.success("✅ PDF généré !")
+                                        
+                                    except Exception as e:
+                                        st.error(f"❌ Erreur génération PDF : {e}")
+                        
+                        # Export Image
+                        with col2:
+                            if st.button("🖼️ Télécharger Image", use_container_width=True):
+                                with st.spinner("Génération de l'image..."):
+                                    try:
+                                        img_exporter = ImageExporter()
+                                        
+                                        os.makedirs("exports", exist_ok=True)
+                                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                        img_path = f"exports/card_{timestamp}.png"
+                                        
+                                        summary['title'] = match_title if match_title else "Résumé de Match"
+                                        
+                                        img_exporter.create_social_card(summary, img_path)
+                                        
+                                        # Afficher et télécharger
+                                        st.image(img_path, use_column_width=True)
+                                        
+                                        with open(img_path, "rb") as f:
+                                            st.download_button(
+                                                label="⬇️ Cliquez pour télécharger",
+                                                data=f.read(),
+                                                file_name=f"card_match_{timestamp}.png",
+                                                mime="image/png",
+                                                use_container_width=True
+                                            )
+                                        
+                                        st.success("✅ Image générée !")
+                                        
+                                    except Exception as e:
+                                        st.error(f"❌ Erreur génération image : {e}")
+                        
+                        # Copier dans le presse-papiers
+                        with col3:
+                            st.button("📋 Copier le texte", use_container_width=True)
+                            st.code(summary['summary'], language=None)
+                        
+                        # Sauvegarder dans l'historique
+                        if 'summaries_history' not in st.session_state:
+                            st.session_state.summaries_history = []
+                        
+                        summary['title'] = match_title if match_title else f"Match {len(st.session_state.summaries_history) + 1}"
+                        st.session_state.summaries_history.append(summary)
+                        
+                    except Exception as e:
+                        st.error(f"❌ Erreur lors de la génération : {e}")
+                        logger.error(f"Erreur résumé : {e}")
+    
+    # TAB 2 : Résumés multiples
+    with tab2:
+        st.markdown("### 📚 Générer plusieurs résumés en batch")
+        
+        st.info("💡 Collez plusieurs textes d'articles séparés par `---` pour générer des résumés en batch.")
+        
+        batch_text = st.text_area(
+            "Textes des matchs (séparés par ---)",
+            height=300,
+            placeholder="Article match 1...\n\n---\n\nArticle match 2...\n\n---\n\nArticle match 3..."
+        )
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            batch_length = st.selectbox(
+                "Longueur",
+                ["short", "medium", "long"],
+                format_func=lambda x: {"short": "Court", "medium": "Moyen", "long": "Long"}[x],
+                key="batch_length"
+            )
+        with col2:
+            batch_language = st.selectbox("Langue", ["fr", "en"], key="batch_language")
+        
+        if st.button("✨ Générer tous les résumés", type="primary", use_container_width=True):
+            if batch_text:
+                # Séparer les textes
+                texts = [t.strip() for t in batch_text.split("---") if t.strip()]
+                
+                if len(texts) == 0:
+                    st.warning("⚠️ Aucun texte valide trouvé.")
+                else:
+                    st.info(f"🔄 Génération de {len(texts)} résumés... (environ {len(texts) * 2} secondes)")
+                    
+                    # Préparer les textes
+                    items = [{"text": text, "title": f"Match {i+1}"} for i, text in enumerate(texts)]
+                    
+                    # Générer
+                    progress_bar = st.progress(0)
+                    status_text = st.empty()
+                    
+                    summaries = []
+                    for idx, item in enumerate(items):
+                        status_text.text(f"Résumé {idx+1}/{len(items)}...")
+                        try:
+                            summary = summarizer.generate_summary(
+                                item['text'],
+                                batch_length,
+                                batch_language
+                            )
+                            summary['title'] = item['title']
+                            summaries.append(summary)
+                        except Exception as e:
+                            st.error(f"Erreur pour {item['title']}: {e}")
+                        
+                        progress_bar.progress((idx + 1) / len(items))
+                        
+                        # Délai de 2s entre chaque (rate limit)
+                        if idx < len(items) - 1:
+                            import time
+                            time.sleep(2)
+                    
+                    status_text.text("✅ Terminé !")
+                    
+                    # Afficher tous les résumés
+                    st.markdown("---")
+                    st.markdown("### 📋 Résumés Générés")
+                    
+                    for idx, summary in enumerate(summaries, 1):
+                        with st.expander(f"📄 {summary['title']} ({summary['word_count']} mots)"):
+                            st.markdown(summary['summary'])
+                    
+                    # Export PDF compilé
+                    if st.button("📄 Télécharger PDF compilé", use_container_width=True):
+                        with st.spinner("Génération du PDF compilé..."):
+                            try:
+                                pdf_exporter = PDFExporter()
+                                os.makedirs("exports", exist_ok=True)
+                                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                pdf_path = f"exports/digest_{timestamp}.pdf"
+                                
+                                pdf_exporter.export_multiple_summaries(
+                                    summaries,
+                                    pdf_path,
+                                    title=f"Résumés CAN 2025 - {len(summaries)} Matchs"
+                                )
+                                
+                                with open(pdf_path, "rb") as f:
+                                    st.download_button(
+                                        label="⬇️ Télécharger le digest PDF",
+                                        data=f.read(),
+                                        file_name=f"digest_matchs_{timestamp}.pdf",
+                                        mime="application/pdf",
+                                        use_container_width=True
+                                    )
+                                
+                                st.success(f"✅ PDF avec {len(summaries)} résumés créé !")
+                                
+                            except Exception as e:
+                                st.error(f"❌ Erreur : {e}")
+    
+    # TAB 3 : Historique
+    with tab3:
+        st.markdown("### 🔍 Résumés sauvegardés dans cette session")
+        
+        if 'summaries_history' not in st.session_state or len(st.session_state.summaries_history) == 0:
+            st.info("📭 Aucun résumé généré dans cette session pour le moment.")
+        else:
+            st.success(f"✅ {len(st.session_state.summaries_history)} résumé(s) en mémoire")
+            
+            for idx, summary in enumerate(st.session_state.summaries_history, 1):
+                with st.expander(f"📄 {summary.get('title', f'Résumé {idx}')} - {summary.get('word_count', 0)} mots"):
+                    st.markdown(f"**Généré le:** {summary.get('generated_at', 'N/A')[:19]}")
+                    st.markdown(f"**Longueur:** {summary.get('length', 'N/A').capitalize()}")
+                    st.markdown(f"**Langue:** {summary.get('language', 'N/A').upper()}")
+                    st.markdown("---")
+                    st.markdown(summary.get('summary', ''))
+            
+            # Bouton pour exporter tout l'historique
+            if st.button("📄 Exporter tout l'historique en PDF", use_container_width=True):
+                with st.spinner("Génération du PDF..."):
+                    try:
+                        pdf_exporter = PDFExporter()
+                        os.makedirs("exports", exist_ok=True)
+                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        pdf_path = f"exports/historique_{timestamp}.pdf"
+                        
+                        pdf_exporter.export_multiple_summaries(
+                            st.session_state.summaries_history,
+                            pdf_path,
+                            title="Historique des Résumés - CAN 2025"
+                        )
+                        
+                        with open(pdf_path, "rb") as f:
+                            st.download_button(
+                                label="⬇️ Télécharger l'historique PDF",
+                                data=f.read(),
+                                file_name=f"historique_{timestamp}.pdf",
+                                mime="application/pdf",
+                                use_container_width=True
+                            )
+                        
+                        st.success("✅ PDF de l'historique créé !")
+                        
+                    except Exception as e:
+                        st.error(f"❌ Erreur : {e}")
+            
+            # Bouton pour vider l'historique
+            if st.button("🗑️ Vider l'historique", use_container_width=True):
+                st.session_state.summaries_history = []
+                st.rerun()
 
 
 if __name__ == "__main__":
