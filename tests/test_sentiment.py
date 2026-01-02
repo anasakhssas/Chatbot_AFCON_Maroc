@@ -1,13 +1,131 @@
 """
-Script de test pour l'analyseur de sentiment YouTube
-Teste les fonctionnalités de base sans interface Streamlit
+Tests unitaires pour l'analyse de sentiment
 """
 
+import pytest
 import sys
-import os
+from pathlib import Path
 
-# Ajouter le répertoire parent au path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Ajouter le répertoire parent au PYTHONPATH
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from src.sentiment.youtube_analyzer import YouTubeSentimentAnalyzer
+
+
+class TestSentimentAnalyzer:
+    """Tests de l'analyseur de sentiment"""
+    
+    @pytest.fixture
+    def analyzer(self):
+        """Fixture: Créer un analyseur"""
+        return YouTubeSentimentAnalyzer()
+    
+    def test_analyzer_creation(self, analyzer):
+        """Test: L'analyseur peut être créé"""
+        assert analyzer is not None
+        assert analyzer.classifier is not None
+    
+    def test_positive_sentiment(self, analyzer):
+        """Test: Détecter un sentiment positif"""
+        texts = [
+            "Vive le Maroc! Excellente performance!",
+            "C'est magnifique, quelle victoire!",
+            "Bravo aux Lions de l'Atlas! 🇲🇦"
+        ]
+        
+        for text in texts:
+            result = analyzer.analyze_text(text)
+            assert result['label'] in ['POSITIVE', 'LABEL_2']
+            assert result['score'] > 0.5
+    
+    def test_negative_sentiment(self, analyzer):
+        """Test: Détecter un sentiment négatif"""
+        texts = [
+            "Quelle déception, c'est horrible",
+            "Performance catastrophique",
+            "Je suis très déçu"
+        ]
+        
+        for text in texts:
+            result = analyzer.analyze_text(text)
+            assert result['label'] in ['NEGATIVE', 'LABEL_0']
+            assert result['score'] > 0.5
+    
+    def test_neutral_sentiment(self, analyzer):
+        """Test: Détecter un sentiment neutre"""
+        texts = [
+            "Le match commence à 20h",
+            "Il y a 24 équipes",
+            "La CAN se déroule au Maroc"
+        ]
+        
+        for text in texts:
+            result = analyzer.analyze_text(text)
+            assert result is not None
+            assert 'label' in result
+            assert 'score' in result
+    
+    def test_empty_text(self, analyzer):
+        """Test: Gérer un texte vide"""
+        result = analyzer.analyze_text("")
+        assert result is not None
+    
+    def test_multilingual(self, analyzer):
+        """Test: Analyse multilingue"""
+        texts = {
+            'fr': "C'est excellent!",
+            'en': "This is great!",
+            'ar': "رائع جداً"  # "Très bien"
+        }
+        
+        for lang, text in texts.items():
+            result = analyzer.analyze_text(text)
+            assert result is not None
+            assert 'label' in result
+
+
+class TestBatchAnalysis:
+    """Tests de l'analyse en batch"""
+    
+    def test_analyze_multiple_comments(self):
+        """Test: Analyser plusieurs commentaires"""
+        analyzer = YouTubeSentimentAnalyzer()
+        
+        comments = [
+            {"text": "Excellent match!", "likes": 10},
+            {"text": "Décevant", "likes": 5},
+            {"text": "Match nul", "likes": 3}
+        ]
+        
+        results = []
+        for comment in comments:
+            result = analyzer.analyze_text(comment['text'])
+            results.append(result)
+        
+        assert len(results) == len(comments)
+        assert all('label' in r for r in results)
+
+
+class TestSentimentMetrics:
+    """Tests des métriques de sentiment"""
+    
+    def test_confidence_score(self):
+        """Test: Le score de confiance est valide"""
+        analyzer = YouTubeSentimentAnalyzer()
+        result = analyzer.analyze_text("C'est vraiment génial!")
+        
+        assert 0.0 <= result['score'] <= 1.0
+    
+    def test_label_format(self):
+        """Test: Le format du label est correct"""
+        analyzer = YouTubeSentimentAnalyzer()
+        result = analyzer.analyze_text("Test")
+        
+        assert result['label'] in ['POSITIVE', 'NEGATIVE', 'NEUTRAL', 'LABEL_0', 'LABEL_1', 'LABEL_2']
+
+
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])
 
 from src.sentiment.youtube_analyzer import YouTubeSentimentAnalyzer
 

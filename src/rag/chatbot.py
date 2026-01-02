@@ -17,6 +17,7 @@ from langchain_core.runnables import RunnablePassthrough
 
 from .config import RAGConfig
 from .vectorizer import VectorizerCAN2025
+from .cache_manager import ResponseCache
 
 # Configuration du logging
 logging.basicConfig(
@@ -41,6 +42,7 @@ class ChatbotCAN2025:
         self.llm = None
         self.qa_chain = None
         self.conversation_history = []
+        self.cache = ResponseCache(ttl_hours=24)  # Cache 24h
         
         # Charger ou créer le vectorstore
         if load_existing and self.config.CHROMA_DB_DIR.exists():
@@ -95,18 +97,28 @@ class ChatbotCAN2025:
         
         logger.info("✅ Chaîne RAG initialisée")
     
-    def ask(self, question: str, verbose: bool = False) -> Dict[str, Any]:
+    def ask(self, question: str, verbose: bool = False, use_cache: bool = True) -> Dict[str, Any]:
         """
         Poser une question au chatbot
         
         Args:
             question: La question en langage naturel
             verbose: Si True, affiche les détails du processus
+            use_cache: Si True, utilise le cache pour les réponses
         
         Returns:
             Dictionnaire avec la réponse, sources et métadonnées
         """
         logger.info(f"❓ Question : {question}")
+        
+        # Vérifier le cache d'abord
+        if use_cache:
+            cached_response = self.cache.get(question)
+            if cached_response:
+                logger.info("📦 Réponse récupérée du cache")
+                if verbose:
+                    print("\n💨 [CACHE HIT] Réponse instantanée!")
+                return cached_response
         
         try:
             # Récupérer les documents pertinents
@@ -136,6 +148,10 @@ class ChatbotCAN2025:
                     'excerpt': doc.page_content[:150] + "..." if len(doc.page_content) > 150 else doc.page_content
                 }
                 response['sources'].append(source)
+            
+            # Sauvegarder dans le cache
+            if use_cache:
+                self.cache.set(question, response)
             
             # Ajouter à l'historique
             self.conversation_history.append(response)
@@ -227,12 +243,14 @@ class ChatbotCAN2025:
     def get_stats(self) -> Dict[str, Any]:
         """Obtenir les statistiques du chatbot"""
         vectorstore_stats = self.vectorizer.get_stats()
+        cache_stats = self.cache.get_stats()
         
         stats = {
             'vectorstore': vectorstore_stats,
             'llm_model': self.config.LLM_MODEL,
             'embedding_model': self.config.EMBEDDING_MODEL,
             'conversations': len(self.conversation_history),
+            'cache': cache_stats,
             'configuration': {
                 'temperature': self.config.LLM_TEMPERATURE,
                 'max_tokens': self.config.MAX_TOKENS,
