@@ -22,6 +22,7 @@ from src.sentiment.visualizer import (
 from src.summary.match_summarizer import MatchSummarizer
 from src.summary.exporters import PDFExporter, ImageExporter
 from src.avatar.avatar_controller import AvatarController
+from src.avatar.avatar_renderer import AvatarRenderer
 import logging
 
 # Configuration de la page
@@ -575,7 +576,7 @@ def avatar_page():
     st.markdown("""
     <div class="main-header">
         <h1>🎭 Avatar Virtuel - Expert Historique CAN</h1>
-        <p>Posez vos questions sur l'histoire de la Coupe d'Afrique des Nations</p>
+        <p>Posez vos questions vocalement ou par texte sur l'histoire de la CAN</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -588,40 +589,46 @@ def avatar_page():
             st.error(f"❌ Erreur initialisation avatar : {e}")
             return None
     
-    avatar = init_avatar()
+    @st.cache_resource
+    def init_renderer():
+        try:
+            return AvatarRenderer()
+        except Exception as e:
+            st.error(f"❌ Erreur initialisation renderer : {e}")
+            return None
     
-    if not avatar:
+    avatar = init_avatar()
+    renderer = init_renderer()
+    
+    if not avatar or not renderer:
         st.warning("⚠️ L'avatar n'a pas pu être initialisé.")
         return
+    
+    # État de l'avatar
+    if 'avatar_state' not in st.session_state:
+        st.session_state.avatar_state = "neutral"
+    if 'avatar_speaking' not in st.session_state:
+        st.session_state.avatar_speaking = False
     
     # Layout en colonnes
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        # Avatar statique (image placeholder)
+        # Avatar animé avec expression
+        avatar_html = renderer.get_html_avatar(st.session_state.avatar_state)
+        st.markdown(avatar_html, unsafe_allow_html=True)
+        
+        # Info sous l'avatar
         st.markdown("""
-        <div style="
-            background: linear-gradient(135deg, #C1272D 0%, #006233 100%);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-        ">
-            <div style="font-size: 120px; margin: 20px 0;">
-                🎭
-            </div>
-            <h2 style="color: white; margin: 10px 0;">Expert CAN</h2>
-            <p style="color: rgba(255,255,255,0.9); margin: 5px 0;">
-                Spécialiste de l'historique de la Coupe d'Afrique
+        <div style="text-align: center; margin-top: -20px;">
+            <h3 style="color: #C1272D; margin: 5px 0;">Expert Historique CAN</h3>
+            <p style="color: #006233; font-size: 14px;">
+                65 ans d'histoire • 1957-2023
             </p>
         </div>
         """, unsafe_allow_html=True)
         
-        # État de l'avatar
-        if 'avatar_speaking' not in st.session_state:
-            st.session_state.avatar_speaking = False
-        
+        # État actuel
         if st.session_state.avatar_speaking:
             st.markdown("""
             <div style="
@@ -629,7 +636,10 @@ def avatar_page():
                 color: #C1272D;
                 font-size: 18px;
                 font-weight: bold;
-                animation: pulse 1.5s infinite;
+                padding: 10px;
+                background: rgba(193, 39, 45, 0.1);
+                border-radius: 10px;
+                margin-top: 10px;
             ">
                 🎤 En train de parler...
             </div>
@@ -640,13 +650,49 @@ def avatar_page():
                 text-align: center;
                 color: #006233;
                 font-size: 16px;
+                padding: 10px;
+                background: rgba(0, 98, 51, 0.1);
+                border-radius: 10px;
+                margin-top: 10px;
             ">
-                💤 En attente de question
+                💭 Prêt à répondre
             </div>
             """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("### 💬 Posez votre question")
+        
+        # Bouton microphone pour question vocale
+        st.markdown("**🎙️ Question vocale :**")
+        col_mic, col_status = st.columns([1, 2])
+        
+        with col_mic:
+            mic_button = st.button("🎤 Parler", use_container_width=True, type="secondary")
+        
+        with col_status:
+            if mic_button:
+                st.session_state.avatar_state = "listening"
+                st.info("🎧 Écoute en cours... Parlez maintenant!")
+                
+                try:
+                    with st.spinner("🎤 Enregistrement audio..."):
+                        result = avatar.listen_microphone()
+                    
+                    if result['success']:
+                        st.session_state.selected_question = result['text']
+                        st.success(f"✅ Compris : {result['text'][:50]}...")
+                        st.session_state.avatar_state = "neutral"
+                        st.rerun()
+                    else:
+                        st.error(f"❌ {result['error']}")
+                        st.session_state.avatar_state = "neutral"
+                
+                except Exception as e:
+                    st.error(f"❌ Erreur microphone : {str(e)}")
+                    st.session_state.avatar_state = "neutral"
+        
+        st.markdown("---")
+        st.markdown("### 💬 Question texte")
         
         # Questions suggérées
         st.markdown("**💡 Questions populaires :**")
@@ -675,17 +721,28 @@ def avatar_page():
         )
         
         # Bouton demander
-        if st.button("🎤 Poser la Question à l'Avatar", type="primary", use_container_width=True):
+        col_btn1, col_btn2 = st.columns(2)
+        with col_btn1:
+            ask_button = st.button("💬 Poser Question Texte", type="primary", use_container_width=True)
+        with col_btn2:
+            clear_btn = st.button("🔄 Effacer", use_container_width=True)
+            if clear_btn and 'selected_question' in st.session_state:
+                del st.session_state.selected_question
+                st.rerun()
+        
+        if ask_button:
             if not question:
                 st.warning("⚠️ Veuillez poser une question d'abord.")
             else:
                 st.session_state.avatar_speaking = True
+                st.session_state.avatar_state = "thinking"
                 
                 with st.spinner("🤖 L'avatar réfléchit..."):
                     try:
                         result = avatar.process_question(question)
                         
                         if result['success']:
+                            st.session_state.avatar_state = "speaking"
                             st.success("✅ Réponse générée !")
                             
                             # Afficher la réponse texte
@@ -739,6 +796,7 @@ def avatar_page():
                     
                     finally:
                         st.session_state.avatar_speaking = False
+                        st.session_state.avatar_state = "neutral"
                         if 'selected_question' in st.session_state:
                             del st.session_state.selected_question
     

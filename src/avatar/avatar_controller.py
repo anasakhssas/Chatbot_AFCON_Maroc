@@ -8,6 +8,7 @@ import os
 import hashlib
 from datetime import datetime
 import logging
+import speech_recognition as sr
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -155,7 +156,63 @@ class AvatarController:
     def __init__(self):
         self.historique = HistoriqueCANLoader()
         self.tts = TTSEngine()
+        self.recognizer = sr.Recognizer()
         logger.info("✅ Avatar Controller initialisé")
+    
+    def listen_microphone(self) -> dict:
+        """
+        Écoute le microphone et convertit la voix en texte
+        
+        Returns:
+            Dict avec le texte transcrit ou erreur
+        """
+        try:
+            with sr.Microphone() as source:
+                logger.info("🎤 Ajustement du bruit ambiant...")
+                self.recognizer.adjust_for_ambient_noise(source, duration=1)
+                
+                logger.info("🎤 Écoute en cours... Parlez maintenant !")
+                audio = self.recognizer.listen(source, timeout=10, phrase_time_limit=15)
+                
+                logger.info("🔄 Reconnaissance vocale en cours...")
+                # Reconnaissance en français
+                text = self.recognizer.recognize_google(audio, language="fr-FR")
+                
+                logger.info(f"✅ Transcrit: {text}")
+                return {
+                    "success": True,
+                    "text": text,
+                    "error": None
+                }
+                
+        except sr.WaitTimeoutError:
+            logger.warning("⏰ Timeout: Aucune voix détectée")
+            return {
+                "success": False,
+                "text": "",
+                "error": "Timeout: Aucune voix détectée dans les 10 secondes"
+            }
+        except sr.UnknownValueError:
+            logger.warning("❌ Impossible de comprendre l'audio")
+            return {
+                "success": False,
+                "text": "",
+                "error": "Je n'ai pas pu comprendre ce que vous avez dit"
+            }
+        except sr.RequestError as e:
+            logger.error(f"❌ Erreur service de reconnaissance: {e}")
+            return {
+                "success": False,
+                "text": "",
+                "error": f"Erreur du service de reconnaissance vocale: {e}"
+            }
+        except Exception as e:
+            logger.error(f"❌ Erreur microphone: {e}")
+            return {
+                "success": False,
+                "text": "",
+                "error": f"Erreur microphone: {e}"
+            }
     
     def process_question(self, question: str) -> dict:
         """
