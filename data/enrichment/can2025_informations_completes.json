@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "source": "enrichment_manual",
+    "date": "2026-01-03",
+    "version": "1.0",
+    "description": "Informations complètes sur la CAN 2025 au Maroc"
+  },
+  "documents": [
+    {
+      "id": "can2025_general_001",
+      "text": "La Coupe d'Afrique des Nations 2025 se déroule au Maroc du 21 décembre 2025 au 18 janvier 2026. C'est la 35ème édition de la compétition. Le Maroc organise la CAN pour la deuxième fois après 1988. Cette édition réunit 24 équipes nationales qualifiées réparties en 6 poules de 4 équipes. Le format prévoit une phase de groupes suivie de huitièmes de finale, quarts de finale, demi-finales et finale.",
+      "metadata": {
+        "category": "informations_generales",
+        "source": "can2025_official",
+        "date": "2025-12-21",
+        "keywords": ["CAN 2025", "Maroc", "dates", "format", "24 équipes"],
+        "title": "Informations générales CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_stades_001",
+      "text": "La CAN 2025 se déroule dans 6 stades à travers le Maroc : le Stade Mohammed V à Casablanca (capacité 45 891), le Complexe Sportif Prince Moulay Abdellah à Rabat (52 000 places), le Stade de Marrakech (45 240 places), le Stade Adrar à Agadir (45 480 places), le Stade de Tanger (65 000 places) et le Stade d'Oujda (nouveau, 28 000 places). La finale se jouera au Stade Mohammed V de Casablanca le 18 janvier 2026.",
+      "metadata": {
+        "category": "infrastructures",
+        "source": "can2025_official",
+        "date": "2025-12-01",
+        "keywords": ["stades", "Casablanca", "Rabat", "Marrakech", "Agadir", "Tanger", "Oujda"],
+        "title": "Stades de la CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_equipes_001",
+      "text": "Les 24 équipes qualifiées pour la CAN 2025 sont : Maroc (pays hôte), Algérie, Tunisie, Égypte, Sénégal, Cameroun, Nigeria, Ghana, Côte d'Ivoire, Mali, Burkina Faso, Guinée, RD Congo, Angola, Afrique du Sud, Zambie, Mozambique, Tanzanie, Namibie, Soudan, Gabon, Zimbabwe, Bénin et Mauritanie. Le tenant du titre est la Côte d'Ivoire, vainqueur en 2023.",
+      "metadata": {
+        "category": "equipes_qualifiees",
+        "source": "can2025_official",
+        "date": "2025-11-20",
+        "keywords": ["équipes qualifiées", "24 nations", "Maroc", "Algérie", "Sénégal", "Égypte"],
+        "title": "Équipes qualifiées CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_poules_001",
+      "text": "Composition des poules de la CAN 2025 : Poule A : Maroc, Mali, Zambie, Tanzanie. Poule B : Égypte, Ghana, Angola, Mozambique. Poule C : Sénégal, Cameroun, Guinée, Gabon. Poule D : Algérie, Burkina Faso, Mauritanie, Soudan. Poule E : Nigeria, Tunisie, Afrique du Sud, Namibie. Poule F : Côte d'Ivoire, RD Congo, Zimbabwe, Bénin. Le tirage au sort a eu lieu le 27 janvier 2025 à Rabat.",
+      "metadata": {
+        "category": "phase_de_groupes",
+        "source": "can2025_official",
+        "date": "2025-01-27",
+        "keywords": ["poules", "tirage au sort", "groupes", "phase de poules"],
+        "title": "Composition des poules CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_maroc_selection_001",
+      "text": "L'équipe du Maroc pour la CAN 2025 est composée de joueurs évoluant dans les plus grands championnats européens. Les stars incluent Achraf Hakimi (PSG), Hakim Ziyech (Galatasaray), Youssef En-Nesyri (AS Roma), Sofyan Amrabat (Manchester United), Nayef Aguerd (West Ham), Yassine Bounou (Al-Hilal). Le sélectionneur est Walid Regragui, artisan de la qualification historique du Maroc en demi-finale de la Coupe du Monde 2022.",
+      "metadata": {
+        "category": "selection_maroc",
+        "source": "can2025_official",
+        "date": "2025-12-15",
+        "keywords": ["Maroc", "joueurs", "Hakimi", "Ziyech", "En-Nesyri", "Regragui"],
+        "title": "Sélection marocaine CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_favoris_001",
+      "text": "Les favoris de la CAN 2025 selon les experts sont : 1) Le Maroc, pays hôte avec une équipe exceptionnelle issue de la Coupe du Monde 2022. 2) Le Sénégal, tenant du titre africain et champion en 2021. 3) L'Égypte, recordman avec 7 titres et une équipe expérimentée menée par Mohamed Salah. 4) Le Cameroun, 5 fois champion et présence régulière dans le dernier carré. 5) L'Algérie, champion 2019 avec une génération talentueuse. Le Maroc part grand favori avec l'avantage du public marocain.",
+      "metadata": {
+        "category": "pronostics",
+        "source": "can2025_analysis",
+        "date": "2025-12-10",
+        "keywords": ["favoris", "pronostics", "Maroc", "Sénégal", "Égypte"],
+        "title": "Favoris CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_calendrier_001",
+      "text": "Calendrier de la CAN 2025 : Phase de groupes du 21 décembre 2025 au 2 janvier 2026 (3 journées). Huitièmes de finale du 5 au 8 janvier 2026. Quarts de finale du 11 au 12 janvier 2026. Demi-finales le 15 janvier 2026. Match pour la 3ème place le 17 janvier 2026. Grande finale le 18 janvier 2026 au Stade Mohammed V de Casablanca à 20h00 heure locale. Le match d'ouverture oppose le Maroc au Mali le 21 décembre à 18h00 à Casablanca.",
+      "metadata": {
+        "category": "calendrier",
+        "source": "can2025_official",
+        "date": "2025-12-01",
+        "keywords": ["calendrier", "dates", "finale", "match d'ouverture"],
+        "title": "Calendrier complet CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_records_001",
+      "text": "Records à surveiller lors de la CAN 2025 : Mohamed Salah (Égypte) peut devenir le meilleur buteur égyptien en CAN, il lui manque 2 buts. Riyad Mahrez (Algérie) peut rejoindre les légendes avec plus de 10 buts en CAN. Sadio Mané (Sénégal) cherche son 2ème titre après 2021. Le Maroc peut égaler le record de buts marqués en phase de groupes détenu par la Côte d'Ivoire. Samuel Eto'o détient le record de 18 buts en CAN.",
+      "metadata": {
+        "category": "records_statistiques",
+        "source": "can_stats",
+        "date": "2025-12-15",
+        "keywords": ["records", "Salah", "Mahrez", "Mané", "statistiques"],
+        "title": "Records à battre CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_arbitrage_001",
+      "text": "La CAN 2025 utilise les dernières technologies d'arbitrage : VAR (assistance vidéo) sur tous les matchs à partir des huitièmes de finale, technologie de détection de but (Goal-Line Technology), système de communication arbitre-VAR de dernière génération. 24 arbitres principaux issus de toute l'Afrique ont été sélectionnés. L'arbitre sénégalais Maguette N'Diaye et le zambien Janny Sikazwe font partie des arbitres d'élite désignés.",
+      "metadata": {
+        "category": "arbitrage_technologie",
+        "source": "can2025_official",
+        "date": "2025-12-01",
+        "keywords": ["VAR", "arbitrage", "technologie", "arbitres"],
+        "title": "Arbitrage et technologie CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_billetterie_001",
+      "text": "La billetterie de la CAN 2025 propose plusieurs catégories : Catégorie 1 (tribune principale) : 500-1500 MAD selon le match. Catégorie 2 (tribunes latérales) : 300-800 MAD. Catégorie 3 (virages) : 100-400 MAD. Finale : 2000 MAD (catégorie 1), 1200 MAD (catégorie 2), 600 MAD (catégorie 3). Les billets sont disponibles sur le site officiel can2025.ma. Des forfaits famille et des packs de matchs sont proposés. Plus de 800 000 billets sont disponibles pour l'ensemble de la compétition.",
+      "metadata": {
+        "category": "billetterie_pratique",
+        "source": "can2025_official",
+        "date": "2025-11-01",
+        "keywords": ["billets", "prix", "réservation", "catégories"],
+        "title": "Billetterie CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_economie_001",
+      "text": "Impact économique de la CAN 2025 : Le Maroc investit 4,5 milliards de dirhams dans les infrastructures (stades, routes, hôtels). L'événement devrait générer 8 milliards de dirhams de retombées économiques. 2 millions de visiteurs sont attendus, dont 500 000 touristes étrangers. 50 000 emplois temporaires créés. Le secteur hôtelier affiche complet dans les villes hôtes. La CAF verse 180 millions de dollars de primes aux équipes participantes. Le champion empochera 7 millions de dollars.",
+      "metadata": {
+        "category": "economie_impact",
+        "source": "can2025_economy",
+        "date": "2025-11-15",
+        "keywords": ["économie", "investissements", "tourisme", "emplois", "primes"],
+        "title": "Impact économique CAN 2025"
+      }
+    },
+    {
+      "id": "can2025_tv_diffusion_001",
+      "text": "Diffusion télévisée de la CAN 2025 : Au Maroc, tous les matchs sont diffusés sur les chaînes nationales Arryadia et Al Aoula. BeIN Sports détient les droits pour le monde arabe. SuperSport diffuse en Afrique subsaharienne. En France, la compétition est visible sur L'Équipe et beIN Sports. Plus de 500 millions de téléspectateurs sont attendus à travers le monde. C'est l'événement sportif le plus suivi en Afrique. Les matchs du Maroc sont diffusés en direct sur écrans géants dans toutes les villes marocaines.",
+      "metadata": {
+        "category": "diffusion_media",
+        "source": "can2025_media",
+        "date": "2025-12-01",
+        "keywords": ["télévision", "diffusion", "Arryadia", "BeIN Sports", "audience"],
+        "title": "Diffusion TV CAN 2025"
+      }
+    }
+  ]
+}

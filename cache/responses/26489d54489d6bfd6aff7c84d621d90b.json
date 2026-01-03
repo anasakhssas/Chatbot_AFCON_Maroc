@@ -1,0 +1,38 @@
+{
+  "question": "Quels sont les meilleurs buteurs de la CAN actuellement ?",
+  "response": {
+    "question": "Quels sont les meilleurs buteurs de la CAN actuellement ?",
+    "answer": "Les meilleurs buteurs de la CAN actuellement sont Riyad Mahrez, Ayoub El Kaabi et Brahim Díaz, avec 3 buts chacun.",
+    "sources": [
+      {
+        "rank": 1,
+        "category": "tournament_info",
+        "source": "Wikipedia-FR",
+        "date": "2026-01-02",
+        "title": "Coupe d'Afrique des nations de football 2025 (FR)",
+        "excerpt": "Article: Coupe d'Afrique des nations de football 2025 (FR)\nDate: 2026-01-02\nSource: Wikipedia-FR\nCatégorie: tournament_info\n\nContenu:\nCet article ou c..."
+      },
+      {
+        "rank": 2,
+        "category": "tournament_info",
+        "source": "Wikipedia-FR",
+        "date": "2026-01-01",
+        "title": "Coupe d'Afrique des nations de football 2025 (FR)",
+        "excerpt": "Article: Coupe d'Afrique des nations de football 2025 (FR)\nDate: 2026-01-01\nSource: Wikipedia-FR\nCatégorie: tournament_info\n\nContenu:\nCet article ou c..."
+      },
+      {
+        "rank": 3,
+        "category": "tournament_info",
+        "source": "Wikipedia-EN",
+        "date": "2026-01-01",
+        "title": "2025 Africa Cup of Nations (EN)",
+        "excerpt": "Article: 2025 Africa Cup of Nations (EN)\nDate: 2026-01-01\nSource: Wikipedia-EN\nCatégorie: tournament_info\n\nContenu:\n📋 INFORMATIONS TOURNOI:\n• Dates: 2..."
+      }
+    ],
+    "timestamp": "2026-01-02T22:03:59.244853",
+    "model": "llama-3.3-70b-versatile",
+    "num_sources": 3
+  },
+  "cached_at": "2026-01-02T22:03:59.244853",
+  "ttl_hours": 24
+}

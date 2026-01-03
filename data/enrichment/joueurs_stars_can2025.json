@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "source": "enrichment_manual",
+    "date": "2026-01-03",
+    "version": "1.0",
+    "description": "Profils détaillés des joueurs stars de la CAN 2025"
+  },
+  "documents": [
+    {
+      "id": "joueur_hakimi_001",
+      "text": "Achraf Hakimi est le latéral droit vedette du Maroc et du Paris Saint-Germain. Né le 4 novembre 1998 à Madrid, il mesure 1m81. Hakimi est considéré comme l'un des meilleurs arrières latéraux du monde. Formé au Real Madrid, il a joué au Borussia Dortmund et à l'Inter Milan avant de rejoindre le PSG en 2021 pour 60 millions d'euros. Avec le Maroc, il a été héroïque lors de la Coupe du Monde 2022 où le Maroc a atteint les demi-finales. Connu pour sa vitesse fulgurante, ses centres précis et ses tirs puissants. Il porte le numéro 2 en sélection.",
+      "metadata": {
+        "category": "joueurs_maroc",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Achraf Hakimi", "Maroc", "PSG", "latéral droit"],
+        "title": "Achraf Hakimi - Profil"
+      }
+    },
+    {
+      "id": "joueur_ziyech_001",
+      "text": "Hakim Ziyech est le meneur de jeu marocain évoluant à Galatasaray. Né le 19 mars 1993 à Dronten aux Pays-Bas, il mesure 1m80. Ziyech a choisi de représenter le Maroc, pays d'origine de ses parents. Star de l'Ajax Amsterdam avec qui il a atteint la demi-finale de la Ligue des Champions 2019, il a rejoint Chelsea en 2020 puis Galatasaray en 2023. Connu pour son pied gauche magique, ses coups francs dévastateurs et sa vision du jeu exceptionnelle. Il a été un élément clé de la Coupe du Monde 2022. Porte le numéro 7.",
+      "metadata": {
+        "category": "joueurs_maroc",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Hakim Ziyech", "Maroc", "Galatasaray", "meneur de jeu"],
+        "title": "Hakim Ziyech - Profil"
+      }
+    },
+    {
+      "id": "joueur_en_nesyri_001",
+      "text": "Youssef En-Nesyri est l'avant-centre buteur du Maroc, jouant à l'AS Roma. Né le 1er juin 1997 à Fès au Maroc, il mesure 1m89. En-Nesyri a explosé au FC Séville où il a marqué plus de 50 buts entre 2020 et 2024. Transféré à la Roma en 2024 pour 25 millions d'euros, c'est un attaquant complet : puissant dans les airs, rapide, bon finisseur des deux pieds. Il a marqué contre le Portugal et l'Espagne lors de la Coupe du Monde 2022. Meilleur buteur marocain en activité avec plus de 20 buts en sélection. Porte le numéro 9.",
+      "metadata": {
+        "category": "joueurs_maroc",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Youssef En-Nesyri", "Maroc", "AS Roma", "buteur"],
+        "title": "Youssef En-Nesyri - Profil"
+      }
+    },
+    {
+      "id": "joueur_salah_001",
+      "text": "Mohamed Salah est le capitaine et la superstar de l'Égypte. Né le 15 juin 1992 à Nagrig, il mesure 1m75. Considéré comme l'un des meilleurs joueurs du monde, Salah évolue à Liverpool depuis 2017 où il a tout gagné : Premier League, Ligue des Champions, Coupe du monde des clubs. Il a remporté 3 fois le Soulier d'Or de la Premier League et le Ballon d'Or africain à plusieurs reprises. Avec l'Égypte, il cherche à remporter sa première CAN après les finales perdues en 2017 et 2021. Connu pour sa vitesse, son dribble et son efficacité devant le but. Porte le numéro 10.",
+      "metadata": {
+        "category": "joueurs_stars",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Mohamed Salah", "Égypte", "Liverpool", "star mondiale"],
+        "title": "Mohamed Salah - Profil"
+      }
+    },
+    {
+      "id": "joueur_mane_001",
+      "text": "Sadio Mané est la légende vivante du Sénégal et champion d'Afrique 2021. Né le 10 avril 1992 à Bambali, il mesure 1m75. Mané a joué à Liverpool (2016-2022) où il a formé un trio légendaire avec Salah et Firmino, gagnant tous les trophées. Depuis 2022, il évolue au Bayern Munich puis à Al-Nassr en Arabie Saoudite. Double Ballon d'Or africain (2019, 2022), il a marqué le penalty décisif pour donner au Sénégal son premier titre en 2021. Joueur humble et généreux, très engagé dans son village natal. Porte le numéro 10 pour le Sénégal.",
+      "metadata": {
+        "category": "joueurs_stars",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Sadio Mané", "Sénégal", "champion 2021", "Al-Nassr"],
+        "title": "Sadio Mané - Profil"
+      }
+    },
+    {
+      "id": "joueur_mahrez_001",
+      "text": "Riyad Mahrez est le capitaine et maestro de l'Algérie. Né le 21 février 1991 à Sarcelles (France), il mesure 1m79. Champion d'Angleterre avec Leicester (2016) dans un conte de fée incroyable, puis quadruple champion avec Manchester City. Transféré à Al-Ahli (Arabie Saoudite) en 2023 pour 30 millions d'euros. Ballon d'Or africain 2016, il a été élu meilleur joueur de la CAN 2019 qu'il a remportée avec l'Algérie. Ailier droit technique, excellent tireur de coups francs, dribbleur hors pair. Il cherche un 2ème titre continental. Porte le numéro 26.",
+      "metadata": {
+        "category": "joueurs_stars",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Riyad Mahrez", "Algérie", "champion 2019", "Manchester City"],
+        "title": "Riyad Mahrez - Profil"
+      }
+    },
+    {
+      "id": "joueur_osimhen_001",
+      "text": "Victor Osimhen est l'attaquant star du Nigeria. Né le 29 décembre 1998 à Lagos, il mesure 1m85. Meilleur joueur africain 2023 et Soulier d'Or de Serie A avec 26 buts pour Naples, champion d'Italie 2023. Transféré à Galatasaray en 2024 en prêt après des négociations compliquées. Osimhen est un buteur explosif, incroyablement rapide et puissant. Il a remporté la CAN U17 en 2015 et cherche maintenant le titre senior. Connu pour son masque facial qu'il porte suite à une blessure. Évalué à plus de 100 millions d'euros. Porte le numéro 9 pour le Nigeria.",
+      "metadata": {
+        "category": "joueurs_stars",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Victor Osimhen", "Nigeria", "Galatasaray", "meilleur africain 2023"],
+        "title": "Victor Osimhen - Profil"
+      }
+    },
+    {
+      "id": "joueur_amrabat_001",
+      "text": "Sofyan Amrabat est le milieu défensif marocain évoluant à Manchester United. Né le 21 août 1996 à Huizen aux Pays-Bas, il mesure 1m85. Formé à Utrecht puis au Club Bruges, il a brillé à la Fiorentina avant de rejoindre Manchester United en prêt en 2023. Révélation de la Coupe du Monde 2022 où il a été exceptionnel, courant plus de 14 km par match. Surnommé 'le guerrier', Amrabat est un récupérateur infatigable, excellent dans les duels. Il forme une charnière centrale du milieu redoutable avec Azzedine Ounahi. Porte le numéro 4.",
+      "metadata": {
+        "category": "joueurs_maroc",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Sofyan Amrabat", "Maroc", "Manchester United", "milieu défensif"],
+        "title": "Sofyan Amrabat - Profil"
+      }
+    },
+    {
+      "id": "joueur_bounou_001",
+      "text": "Yassine Bounou, surnommé 'Bono', est le gardien numéro 1 du Maroc. Né le 5 avril 1991 à Montréal (Canada), il mesure 1m92. Bounou a choisi le Maroc et est devenu l'un des meilleurs gardiens du monde. Après des années à Gérone et Séville (champion Europa League 2023), il a rejoint Al-Hilal en Arabie Saoudite pour 21 millions d'euros en 2023. Héros de la Coupe du Monde 2022 avec des arrêts décisifs contre l'Espagne en penalties. Excellent dans les arrêts réflexes et au pied. Remplaçant habituel : Munir Mohamedi. Porte le numéro 1.",
+      "metadata": {
+        "category": "joueurs_maroc",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Yassine Bounou", "Bono", "Maroc", "gardien", "Al-Hilal"],
+        "title": "Yassine Bounou - Profil"
+      }
+    },
+    {
+      "id": "entraineur_regragui_001",
+      "text": "Walid Regragui est le sélectionneur du Maroc depuis août 2022. Né le 23 septembre 1975 à Corbeil-Essonnes (France), il mesure 1m78. Ancien latéral droit international marocain (45 sélections), il a joué en France et au Maroc. Comme entraîneur, il a mené le Wydad Casablanca au titre de Ligue des Champions africaine en 2022. Nommé sélectionneur 3 mois avant le Mondial 2022, il a créé l'exploit : 1ères demi-finales africaines en Coupe du Monde. Son style : discipline tactique, bloc défensif solide, jeu collectif. Très apprécié des joueurs. Il cherche maintenant la CAN 2025 à domicile.",
+      "metadata": {
+        "category": "entraineurs",
+        "source": "profils_entraineurs",
+        "date": "2025-12-01",
+        "keywords": ["Walid Regragui", "Maroc", "sélectionneur", "Coupe du Monde 2022"],
+        "title": "Walid Regragui - Sélectionneur"
+      }
+    },
+    {
+      "id": "joueur_aguerd_001",
+      "text": "Nayef Aguerd est le défenseur central titulaire du Maroc. Né le 30 mars 1996 à Kénitra (Maroc), il mesure 1m90. Aguerd a gravi les échelons depuis Dijon, puis Rennes où il a brillé, avant de rejoindre West Ham United en 2022 pour 30 millions d'euros. Défenseur puissant, excellent de la tête, bon relanceur au pied. Il forme une paire centrale solide avec Romain Saïss ou Achraf Dari. Blessé au début du Mondial 2022, il est revenu pour les phases finales. Leader de la défense marocaine, il est essentiel au système de Regragui. Porte le numéro 5.",
+      "metadata": {
+        "category": "joueurs_maroc",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Nayef Aguerd", "Maroc", "West Ham", "défenseur central"],
+        "title": "Nayef Aguerd - Profil"
+      }
+    },
+    {
+      "id": "joueur_ounahi_001",
+      "text": "Azzedine Ounahi est le milieu créatif marocain révélé au Mondial 2022. Né le 19 avril 2000 à Casablanca, il mesure 1m77. Formé à Strasbourg puis Angers, il a explosé lors du Mondial avec des prestations exceptionnelles. Transféré à Marseille en janvier 2023 pour 10 millions d'euros, puis à Panathinaïkos en 2024. Ounahi est un milieu box-to-box moderne : technique, endurant, capable de créer et de défendre. Ses dribbles et sa vision ont impressionné le monde entier au Qatar. Avec Amrabat et Amallah, il forme un milieu équilibré. Porte le numéro 8.",
+      "metadata": {
+        "category": "joueurs_maroc",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "keywords": ["Azzedine Ounahi", "Maroc", "milieu", "révélation Mondial 2022"],
+        "title": "Azzedine Ounahi - Profil"
+      }
+    }
+  ]
+}

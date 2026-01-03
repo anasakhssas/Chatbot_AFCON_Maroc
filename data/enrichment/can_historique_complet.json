@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "source": "enrichment_manual",
+    "date": "2026-01-03",
+    "version": "1.0",
+    "description": "Historique complet de la CAN de 1957 à 2023"
+  },
+  "documents": [
+    {
+      "id": "can_histoire_001",
+      "text": "La Coupe d'Afrique des Nations (CAN) a été créée en 1957 par la Confédération Africaine de Football (CAF). La première édition s'est déroulée au Soudan avec seulement 3 équipes : Égypte, Soudan et Éthiopie. L'Égypte a remporté ce premier tournoi en battant l'Éthiopie 4-0 en finale. L'Afrique du Sud devait participer mais a été exclue en raison de l'apartheid. La compétition se déroulait initialement tous les 2 ans mais de manière irrégulière au début.",
+      "metadata": {
+        "category": "histoire_origines",
+        "source": "can_historical",
+        "date": "1957-01-01",
+        "keywords": ["CAN 1957", "création", "première édition", "Égypte", "Soudan"],
+        "title": "Création de la CAN en 1957"
+      }
+    },
+    {
+      "id": "can_maroc_1976_001",
+      "text": "Le Maroc a remporté sa seule et unique CAN en 1976 en Éthiopie. La finale contre la Guinée s'est terminée 1-1 après prolongation. Le Maroc a gagné 3-0 aux tirs au but. Les héros marocains étaient Houmane Jarir (meilleur buteur avec 3 buts), le gardien Allal Ben Kassou et le capitaine Ahmed Faras. L'entraîneur était le Tchécoslovaque Josef Venglos. Cette victoire reste l'un des moments les plus glorieux du football marocain. Le Maroc espère rééditer cet exploit en 2025 sur son sol.",
+      "metadata": {
+        "category": "maroc_historique",
+        "source": "can_maroc",
+        "date": "1976-03-14",
+        "keywords": ["Maroc 1976", "champion", "Houmane Jarir", "première victoire"],
+        "title": "Victoire du Maroc en 1976"
+      }
+    },
+    {
+      "id": "can_maroc_2004_001",
+      "text": "La finale de la CAN 2004 en Tunisie a vu le Maroc affronter le pays hôte. Le Maroc a perdu 2-1 malgré un excellent parcours. Les Lions de l'Atlas avaient dominé leur poule avec des victoires contre le Bénin (4-0) et l'Afrique du Sud (1-0). En demi-finale, le Maroc avait éliminé le Mali 4-0 avec un triplé de Youssef Mokhtari. C'est la deuxième finale de l'histoire du Maroc en CAN après 1976. Les stars marocaines étaient Talal El Karkouri, Youssef Chippo et Noureddine Naybet.",
+      "metadata": {
+        "category": "maroc_historique",
+        "source": "can_maroc",
+        "date": "2004-02-14",
+        "keywords": ["Maroc 2004", "finaliste", "Tunisie", "Mokhtari"],
+        "title": "Maroc finaliste en 2004"
+      }
+    },
+    {
+      "id": "can_egypte_domination_001",
+      "text": "L'Égypte est le pays le plus titré de l'histoire de la CAN avec 7 victoires : 1957, 1959, 1986, 1998, 2006, 2008 et 2010. Les Pharaons ont réalisé un triplé historique de 2006 à 2010 sous la direction de Hassan Shehata. Cette période a vu l'émergence de légendes comme Mohamed Aboutrika, Ahmed Hassan et Essam El-Hadary. L'Égypte détient aussi le record du plus grand nombre de finales disputées (10). Samuel Eto'o (Cameroun) reste le meilleur buteur de l'histoire avec 18 buts.",
+      "metadata": {
+        "category": "records_historiques",
+        "source": "can_stats",
+        "date": "2010-01-31",
+        "keywords": ["Égypte", "7 titres", "recordman", "Aboutrika", "triplé"],
+        "title": "Domination égyptienne"
+      }
+    },
+    {
+      "id": "can_cameroun_001",
+      "text": "Le Cameroun est le deuxième pays le plus titré avec 5 victoires en CAN : 1984, 1988, 2000, 2002 et 2017. Les Lions Indomptables sont réputés pour leur style spectaculaire. En 2017, le Cameroun a remporté un titre inattendu en battant l'Égypte 2-1 en finale avec un but décisif de Vincent Aboubakar. Samuel Eto'o, meilleur buteur de l'histoire de la CAN avec 18 buts, a mené le Cameroun à 2 titres (2000, 2002). Roger Milla et Patrick Mboma sont d'autres légendes camerounaises.",
+      "metadata": {
+        "category": "grandes_nations",
+        "source": "can_cameroun",
+        "date": "2017-02-05",
+        "keywords": ["Cameroun", "5 titres", "Samuel Eto'o", "Aboubakar"],
+        "title": "Le Cameroun, géant africain"
+      }
+    },
+    {
+      "id": "can_senegal_2021_001",
+      "text": "Le Sénégal a remporté sa première CAN en 2021 après des décennies d'attente. En finale contre l'Égypte au Cameroun, le match s'est terminé 0-0 et le Sénégal a gagné 4-2 aux tirs au but. Sadio Mané a marqué le penalty décisif. C'était la 3ème finale pour le Sénégal après 2002 et 2019. Le gardien Édouard Mendy (Chelsea) a été élu meilleur joueur du tournoi. Cette victoire a mis fin à 60 ans d'attente pour les Lions de la Teranga. Le sélectionneur Aliou Cissé, ancien capitaine finaliste en 2002, a enfin décroché le titre.",
+      "metadata": {
+        "category": "grandes_nations",
+        "source": "can_senegal",
+        "date": "2021-02-06",
+        "keywords": ["Sénégal 2021", "premier titre", "Sadio Mané", "Mendy"],
+        "title": "Première CAN du Sénégal"
+      }
+    },
+    {
+      "id": "can_cote_ivoire_2023_001",
+      "text": "La Côte d'Ivoire a remporté la CAN 2023 à domicile de manière spectaculaire. En finale, les Éléphants ont battu le Nigeria 2-1 avec un but de Sébastien Haller et le but décisif de Franck Kessié. C'est le 3ème titre ivoirien après 1992 et 2015. Le parcours a été difficile avec une défaite 4-0 contre la Guinée Équatoriale en phase de groupes, mais l'équipe s'est ressaisie. Sébastien Haller, revenu de maladie, a été le héros avec 5 buts. Le sélectionneur Émerse Faé, nommé en cours de tournoi, a réussi l'exploit.",
+      "metadata": {
+        "category": "grandes_nations",
+        "source": "can_cote_ivoire",
+        "date": "2023-02-11",
+        "keywords": ["Côte d'Ivoire 2023", "champion", "Haller", "Nigeria"],
+        "title": "Côte d'Ivoire championne 2023"
+      }
+    },
+    {
+      "id": "can_zambie_2012_001",
+      "text": "La victoire de la Zambie en 2012 reste l'une des plus émouvantes de l'histoire de la CAN. La finale contre la Côte d'Ivoire s'est jouée à Libreville au Gabon, près du lieu où l'équipe zambienne avait péri dans un crash aérien en 1993. La Zambie a gagné 8-7 aux tirs au but après un 0-0. Stoppila Sunzu a marqué le penalty décisif. C'était le premier et unique titre de la Zambie. Le gardien Kennedy Mweene a été le héros en arrêtant 2 penalties. Cette victoire a rendu hommage aux 18 joueurs décédés 19 ans plus tôt.",
+      "metadata": {
+        "category": "moments_historiques",
+        "source": "can_zambie",
+        "date": "2012-02-12",
+        "keywords": ["Zambie 2012", "champion", "émotion", "crash 1993", "Libreville"],
+        "title": "Victoire émotive de la Zambie"
+      }
+    },
+    {
+      "id": "can_algerie_2019_001",
+      "text": "L'Algérie a remporté la CAN 2019 en Égypte avec un parcours parfait : 6 victoires et 1 nul. En finale, les Fennecs ont battu le Sénégal 1-0 grâce à un but de Baghdad Bounedjah dès la 2ème minute. Riyad Mahrez, capitaine et star de Manchester City, a été élu meilleur joueur. L'Algérie n'avait plus gagné depuis 1990. Le sélectionneur Djamel Belmadi a révolutionné l'équipe. Cette victoire a lancé une série de 35 matchs sans défaite, record africain. Les héros incluent Yacine Brahimi, Islam Slimani et le gardien Raïs M'Bolhi.",
+      "metadata": {
+        "category": "grandes_nations",
+        "source": "can_algerie",
+        "date": "2019-07-19",
+        "keywords": ["Algérie 2019", "champion", "Mahrez", "parcours parfait"],
+        "title": "Algérie championne 2019"
+      }
+    },
+    {
+      "id": "can_nigeria_001",
+      "text": "Le Nigeria a remporté la CAN à 3 reprises : 1980, 1994 et 2013. Les Super Eagles sont connus pour leur football offensif spectaculaire. En 1994, Emmanuel Amuneke a été le héros avec 2 buts en finale contre la Zambie (2-1). En 2013, Sunday Mba a marqué le but décisif contre le Burkina Faso (1-0). Les légendes nigérianes incluent Jay-Jay Okocha, Nwankwo Kanu, Austin Okocha et Victor Ikpeba. Le Nigeria a aussi terminé finaliste en 1984, 1988, 1990, 2000 et 2023, preuve de sa régularité au sommet.",
+      "metadata": {
+        "category": "grandes_nations",
+        "source": "can_nigeria",
+        "date": "2013-02-10",
+        "keywords": ["Nigeria", "3 titres", "Okocha", "Amuneke", "Super Eagles"],
+        "title": "Le Nigeria en CAN"
+      }
+    },
+    {
+      "id": "can_ghana_001",
+      "text": "Le Ghana a dominé les années 1960 avec 4 titres : 1963, 1965, 1978 et 1982. Les Black Stars ont été finalistes 5 fois supplémentaires (1968, 1970, 1992, 2010, 2015) sans réussir à gagner depuis 1982. La génération dorée des années 2000 avec Asamoah Gyan, Michael Essien, Sulley Muntari et Stephen Appiah a échoué à plusieurs reprises. En 2015, le Ghana a perdu 9-8 aux tirs au but contre la Côte d'Ivoire après 120 minutes sans but, la plus longue séance de penalties de l'histoire. Abedi Pelé reste la plus grande légende ghanéenne.",
+      "metadata": {
+        "category": "grandes_nations",
+        "source": "can_ghana",
+        "date": "2015-02-08",
+        "keywords": ["Ghana", "4 titres", "Black Stars", "Asamoah Gyan", "Abedi Pelé"],
+        "title": "Le Ghana en CAN"
+      }
+    },
+    {
+      "id": "can_records_buts_001",
+      "text": "Samuel Eto'o (Cameroun) détient le record de buts en CAN avec 18 réalisations entre 2000 et 2010. Laurent Pokou (Côte d'Ivoire) a marqué 5 buts en un seul match contre l'Éthiopie en 1970, record toujours invaincu. Hossam Hassan (Égypte) détient le record d'apparitions avec 34 matchs joués sur 6 éditions. La plus large victoire est 6-1 : Égypte contre Libye (2010) et Côte d'Ivoire contre Éthiopie (1970). Le plus jeune buteur est Samuel Kuffour (Ghana) à 16 ans en 1992.",
+      "metadata": {
+        "category": "records_statistiques",
+        "source": "can_stats",
+        "date": "2023-12-01",
+        "keywords": ["records", "Samuel Eto'o", "Pokou", "statistiques", "buts"],
+        "title": "Records de buts en CAN"
+      }
+    }
+  ]
+}

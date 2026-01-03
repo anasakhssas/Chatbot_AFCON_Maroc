@@ -73,20 +73,30 @@ class VectorizerCAN2025:
                 data = json.load(f)
             
             documents = []
-            for doc in data['documents']:
+            for i, doc in enumerate(data['documents']):
+                # Gérer différents formats de documents
+                # Format 1: {text, metadata: {id, category, ...}}
+                # Format 2: {id, text, metadata: {category, ...}}
+                
+                text = doc.get('text', '')
+                metadata = doc.get('metadata', {})
+                
+                # Récupérer l'ID (peut être dans metadata ou à la racine)
+                doc_id = doc.get('id') or metadata.get('id') or f"doc_{i}"
+                
                 # Créer un Document LangChain
                 langchain_doc = Document(
-                    page_content=doc['text'],
+                    page_content=text,
                     metadata={
-                        'id': doc['metadata']['id'],
-                        'category': doc['metadata']['category'],
-                        'source': doc['metadata']['source'],
-                        'date': doc['metadata']['date'],
-                        'keywords': ', '.join(doc['metadata'].get('keywords', [])),
-                        'title': doc['metadata'].get('title', ''),
+                        'id': doc_id,
+                        'category': metadata.get('category', 'unknown'),
+                        'source': metadata.get('source', 'unknown'),
+                        'date': metadata.get('date', ''),
+                        'keywords': ', '.join(metadata.get('keywords', [])) if isinstance(metadata.get('keywords', []), list) else metadata.get('keywords', ''),
+                        'title': metadata.get('title', ''),
                         # Ajouter les métadonnées spécifiques selon la catégorie
-                        **{k: v for k, v in doc['metadata'].items() 
-                           if k not in ['id', 'category', 'source', 'date', 'keywords', 'title']}
+                        **{k: v for k, v in metadata.items() 
+                           if k not in ['id', 'category', 'source', 'date', 'keywords', 'title'] and isinstance(v, (str, int, float, bool))}
                     }
                 )
                 documents.append(langchain_doc)

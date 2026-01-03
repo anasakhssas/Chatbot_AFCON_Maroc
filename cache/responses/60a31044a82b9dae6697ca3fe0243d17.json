@@ -1,0 +1,38 @@
+{
+  "question": "Quelles sont les équipes favorites ?",
+  "response": {
+    "question": "Quelles sont les équipes favorites ?",
+    "answer": "Il n'y a pas d'information explicite dans le contexte fourni qui indique clairement quelles équipes sont considérées comme favorites pour gagner la Coupe d'Afrique des nations de football 2025. Cependant, on peut déduire certaines informations à partir des classements et des performances passées des équipes.\n\nSelon le classement FIFA mentionné dans le contexte (bien que les dates de référence pour ces classements ne soient pas fournies), les équipes du Chapeau 1, qui incluent le Maroc (14), le Sénégal (17), l'Égypte (33), l'Algérie (37), le Nigeria (44) et la Côte d'Ivoire (46), pourraient être considérées comme des équipes fortes en raison de leur position élevée dans le classement FIFA. Ces équipes ont une expérience significative dans la compétition et ont souvent performé bien dans les tournois internationaux.\n\nDe plus, le fait que la Côte d'Ivoire soit le tenant du titre et que d'autres équipes comme le Maroc, l'Égypte et le Sénégal aient une forte présence dans les compétitions internationales, pourrait les rendre des candidats potentiels pour le titre.\n\nCependant, sans plus d'informations sur les performances actuelles des équipes, leurs compositions, les blessures des joueurs clés, etc., il est difficile de donner une réponse définitive sur les équipes favorites. La compétition de football est souvent imprévisible, et des équipes moins favorisées peuvent surprendre en atteignant les étapes finales du tournoi.",
+    "sources": [
+      {
+        "rank": 1,
+        "category": "tournament_info",
+        "source": "Wikipedia-FR",
+        "date": "2026-01-01",
+        "title": "Coupe d'Afrique des nations de football 2025 (FR)",
+        "excerpt": "Article: Coupe d'Afrique des nations de football 2025 (FR)\nDate: 2026-01-01\nSource: Wikipedia-FR\nCatégorie: tournament_info\n\nContenu:\nCet article ou c..."
+      },
+      {
+        "rank": 2,
+        "category": "tournament_info",
+        "source": "Wikipedia-FR",
+        "date": "2026-01-02",
+        "title": "Coupe d'Afrique des nations de football 2025 (FR)",
+        "excerpt": "Article: Coupe d'Afrique des nations de football 2025 (FR)\nDate: 2026-01-02\nSource: Wikipedia-FR\nCatégorie: tournament_info\n\nContenu:\nCet article ou c..."
+      },
+      {
+        "rank": 3,
+        "category": "tournament_info",
+        "source": "Wikipedia-EN",
+        "date": "2026-01-01",
+        "title": "2025 Africa Cup of Nations (EN)",
+        "excerpt": "Article: 2025 Africa Cup of Nations (EN)\nDate: 2026-01-01\nSource: Wikipedia-EN\nCatégorie: tournament_info\n\nContenu:\n📋 INFORMATIONS TOURNOI:\n• Dates: 2..."
+      }
+    ],
+    "timestamp": "2026-01-03T02:39:51.491820",
+    "model": "llama-3.3-70b-versatile",
+    "num_sources": 3
+  },
+  "cached_at": "2026-01-03T02:39:51.491820",
+  "ttl_hours": 24
+}
