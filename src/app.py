@@ -876,14 +876,14 @@ def summary_page():
                 placeholder="Collez ici le texte complet de l'article du match (minimum 100 mots)..."
             )
         else:
-            from src.scrapers.real_scraper import RealScraper
+            from src.pipeline.real_scraper import CANRealScraper
             
             url = st.text_input("URL de l'article", placeholder="https://...")
             
             if url and st.button("🔍 Extraire le texte"):
                 with st.spinner("Extraction du contenu..."):
                     try:
-                        scraper = RealScraper()
+                        scraper = CANRealScraper()
                         results = scraper.scrape_url(url)
                         
                         if results and len(results) > 0:

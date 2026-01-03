@@ -1,0 +1,38 @@
+{
+  "question": "Donnez-moi des informations sur Mohamed Salah",
+  "response": {
+    "question": "Donnez-moi des informations sur Mohamed Salah",
+    "answer": "Mohamed Salah est le capitaine et la superstar de l'Égypte. Il est né le 15 juin 1992 à Nagrig et mesure 1m75. Il est considéré comme l'un des meilleurs joueurs du monde et évolue à Liverpool depuis 2017. Il a remporté de nombreux titres, notamment la Premier League, la Ligue des Champions et la Coupe du monde des clubs. Il a également remporté 3 fois le Soulier d'Or de la Premier League et le Ballon d'Or africain à plusieurs reprises. Il est connu pour sa vitesse, son dribble et son efficacité devant le but, et porte le numéro 10. Il cherche à remporter sa première CAN avec l'Égypte après les finales perdues en 2017 et 2021. Il lui manque 2 buts pour devenir le meilleur buteur égyptien en CAN.",
+    "sources": [
+      {
+        "rank": 1,
+        "category": "joueurs_stars",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "title": "Mohamed Salah - Profil",
+        "excerpt": "Mohamed Salah est le capitaine et la superstar de l'Égypte. Né le 15 juin 1992 à Nagrig, il mesure 1m75. Considéré comme l'un des meilleurs joueurs du..."
+      },
+      {
+        "rank": 2,
+        "category": "records_statistiques",
+        "source": "can_stats",
+        "date": "2025-12-15",
+        "title": "Records à battre CAN 2025",
+        "excerpt": "Records à surveiller lors de la CAN 2025 : Mohamed Salah (Égypte) peut devenir le meilleur buteur égyptien en CAN, il lui manque 2 buts. Riyad Mahrez ..."
+      },
+      {
+        "rank": 3,
+        "category": "joueurs_stars",
+        "source": "profils_joueurs",
+        "date": "2025-12-01",
+        "title": "Riyad Mahrez - Profil",
+        "excerpt": "Riyad Mahrez est le capitaine et maestro de l'Algérie. Né le 21 février 1991 à Sarcelles (France), il mesure 1m79. Champion d'Angleterre avec Leiceste..."
+      }
+    ],
+    "timestamp": "2026-01-03T04:02:10.263011",
+    "model": "llama-3.3-70b-versatile",
+    "num_sources": 3
+  },
+  "cached_at": "2026-01-03T04:02:10.263011",
+  "ttl_hours": 24
+}
