@@ -394,9 +394,9 @@ class AvatarController:
 
 if __name__ == "__main__":
     # Test du système
-    print("\n" + "="*70)
-    print("🎭 TEST DU SYSTÈME AVATAR VIRTUEL")
-    print("="*70 + "\n")
+    logger.info("="*70)
+    logger.info("🎭 TEST DU SYSTÈME AVATAR VIRTUEL")
+    logger.info("="*70)
     
     avatar = AvatarController()
     
@@ -408,20 +408,18 @@ if __name__ == "__main__":
     ]
     
     for question in test_questions:
-        print(f"\n❓ Question: {question}")
-        print("-" * 70)
+        logger.info(f"❓ Question: {question}")
+        logger.info("-" * 70)
         
         result = avatar.process_question(question)
         
         if result['success']:
-            print(f"✅ Réponse ({result['duration']}s):")
-            print(f"{result['response'][:200]}...")
-            print(f"🔊 Audio: {result['audio_path']}")
+            logger.info(f"✅ Réponse ({result['duration']}s):")
+            logger.info(f"{result['response'][:200]}...")
+            logger.info(f"🔊 Audio: {result['audio_path']}")
         else:
-            print(f"❌ Erreur: {result.get('error')}")
-        
-        print()
+            logger.error(f"❌ Erreur: {result.get('error')}")
     
-    print("="*70)
-    print("✅ Tests terminés !")
-    print("="*70 + "\n")
+    logger.info("="*70)
+    logger.info("✅ Tests terminés !")
+    logger.info("="*70)
